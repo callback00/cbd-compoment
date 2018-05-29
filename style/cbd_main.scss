@@ -1,0 +1,9 @@
+// 组件样式总控制端，此处只处理控件的样式引用
+//全局样式，用于定制化主题
+$border-color: #1890ff;
+$input-height:32px;
+$input-font-size:16px;
+
+
+/*----------------------------table---------------------------------*/
+@import '../components/tables/style/Table.scss';
