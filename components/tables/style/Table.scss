@@ -1,15 +1,25 @@
-$radius: 5px;
-.cbd-table {
-    .cbd-table-content {
-        position: relative;
+$radius: 3px; // 圆角不要过大
+$prefixCls:'cbd-table';
+.#{$prefixCls} {
+    position: relative;
+    .#{$prefixCls}-content {
         width: 100%;
         box-sizing: border-box;
+        border-radius: $radius $radius 0 0;
+
+        &.bordered {
+            border-left: 1px solid #d7dde4; // 不能在这里加border-right然后去掉最后一个td或th的border-right，因为在判断合并单元格时会存在问题
+            table tr th,
+            table tr td {
+                border-right: 1px solid #d7dde4 !important;
+            }
+        }
         table {
-            width: 100%;
+            width: auto;
+            min-width: 100%;
             min-height: 25px;
             line-height: 25px;
             border-top: 1px solid #d7dde4;
-            border-left: 1px solid #d7dde4;
             text-align: center;
             table-layout: fixed;
             border-collapse: separate; // 如果直接设置合并边框就无法设置圆角
@@ -19,7 +29,6 @@ $radius: 5px;
         }
         table tr th,
         table tr td {
-            border-right: 1px solid #d7dde4;
             border-bottom: 1px solid #d7dde4;
             box-sizing: border-box;
             height: 31px;
@@ -39,12 +48,44 @@ $radius: 5px;
                 }
             }
         }
-        
-        .cbd-table-body {
+        .#{$prefixCls}-scroll {
+            overflow-x: hidden;
+            .#{$prefixCls}-head {
+                table thead tr {
+                    &:first-child {
+                        th {
+                            &:last-child {
+                                border-radius: 0 0 0 0; // 外边框的圆角不好去掉，去掉这个效果也差不多了
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .#{$prefixCls}-body {
             table {
                 border-radius: 0 0 0 0;
                 border-top: 0;
             }
+        }
+        .#{$prefixCls}-scroll-body {
+            // 这一层的作用是出现滚动条时仍有底边框
+            position: relative;
+            &:after {
+                content: '';
+                width: 100%;
+                bottom: 0;
+                position: absolute;
+                border-bottom: 1px solid #d7dde4;
+                display: block;
+            }
+        }
+        .#{$prefixCls}-placeholder {
+            padding: 20px;
+            text-align: center;
+            font-size: 16px;
+            border-bottom: 1px solid #d7dde4;
+            border-right: 0.5px solid #d7dde4;
         }
     }
 }

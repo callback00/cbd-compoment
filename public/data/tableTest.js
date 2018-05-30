@@ -7,40 +7,40 @@ function genderOnClick(e) {
 
 const columns = [
     {
-        title: 'Name',
+        title: '姓名',
         dataIndex: 'name',
         key: 'name',
         width: 100
     },
     {
-        title: 'Other',
+        title: '其他信息',
         children: [
             {
-                title: 'Age',
+                title: '年龄',
                 dataIndex: 'age',
                 key: 'age',
                 width: 50
             },
             {
-                title: 'Address',
+                title: '地址',
                 children: [
                     {
-                        title: 'Street',
+                        title: '街道',
                         dataIndex: 'street',
                         key: 'street',
                         width: 200
                     },
                     {
-                        title: 'Block',
+                        title: '区域',
                         children: [
                             {
-                                title: 'Building',
+                                title: '建筑',
                                 dataIndex: 'building',
                                 key: 'building',
                                 width: 100
                             },
                             {
-                                title: 'Door No.',
+                                title: '门牌号',
                                 dataIndex: 'number',
                                 key: 'number',
                                 width: 100
@@ -52,15 +52,15 @@ const columns = [
         ]
     },
     {
-        title: 'Company',
+        title: '就职公司',
         children: [
             {
-                title: 'Company Address',
+                title: '公司地址',
                 dataIndex: 'companyAddress',
                 key: 'companyAddress'
             },
             {
-                title: 'Company Name',
+                title: '公司名称',
                 dataIndex: 'companyName',
                 key: 'companyName'
             }
@@ -69,7 +69,7 @@ const columns = [
     {
         title: (
             <a href='#' onClick={genderOnClick} >
-                Gender
+                性别
             </a>
         ),
         dataIndex: 'gender',
@@ -77,19 +77,19 @@ const columns = [
         width: 60
     },
     {
-        title: 'Operations',
+        title: '操作',
         dataIndex: '',
         key: '1',
-        width: 60,
+        width: 160,
         render() {
             return <a href="#">Operations</a>;
         },
     },
     {
-        title: '测试自定义render',
+        title: '自定义渲染',
         dataIndex: '',
         key: '2',
-        // width: 60,
+        width: 160,
         render(text, row, index) {
             return (
                 <input style={{ width: '100%', boxSizing: 'border-box' }} />
@@ -108,7 +108,7 @@ const data = [
         number: '101',
         companyAddress: '五一路淡村市场',
         companyName: '了一家科技公司',
-        gender: '男'
+        gender: {}
     },
     {
         id: '2',
@@ -156,4 +156,74 @@ const data = [
     }
 ]
 
-export default { data, columns }
+const simpleColumns = [
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        width: 100
+    },
+    {
+        title: 'Building',
+        dataIndex: 'building',
+        key: 'building',
+        width: 100
+    },
+    {
+        title: 'Door No.',
+        dataIndex: 'number',
+        key: 'number',
+        width: 100
+    },
+    {
+        title: 'Company Address',
+        dataIndex: 'companyAddress',
+        key: 'companyAddress'
+    },
+    {
+        title: 'Company Name',
+        dataIndex: 'companyName',
+        key: 'companyName'
+    },
+    // {
+    //     title: (
+    //         <a href='#' onClick={genderOnClick} >
+    //             Gender
+    //         </a>
+    //     ),
+    //     dataIndex: 'gender',
+    //     key: 'gender',
+    //     width: 60
+    // },
+    // {
+    //     title: 'Operations',
+    //     dataIndex: '',
+    //     key: '1',
+    //     width: 160,
+    //     render() {
+    //         return <a href="#">Operations</a>;
+    //     },
+    // },
+    // {
+    //     title: 'customer render',
+    //     dataIndex: '',
+    //     key: '2',
+    //     width: 160,
+    //     render(text, row, index) {
+    //         return (
+    //             <input style={{ width: '100%', boxSizing: 'border-box' }} />
+    //         );
+    //     },
+    // }
+]
+
+function getLargeData() {
+    const largeData = []
+    for (let i = 0; i < 50; i++) {
+        largeData.push(...data);
+    }
+
+    return largeData;
+}
+
+export default { data, columns, simpleColumns, getLargeData }

@@ -43,15 +43,11 @@ class DataManager {
         // 用闭包来写
         const MergeCell = function (key, startRowIndex = 0, nextRowIndex = 1) {
             if (nextRowIndex > mergeData.length - 1) {
-                return mergeData
+                return
             }
 
             //程序是自左向右合并,如果第一列不同不合并
             // firstKey是外层函数的变量
-
-            if (!mergeData[startRowIndex]) {
-                console.log(startRowIndex)
-            }
 
             if (mergeData[startRowIndex][key].isDataColumn // 是否是数据列
                 && mergeData[startRowIndex][key].value === mergeData[nextRowIndex][key].value //上下单元格的值是否相同

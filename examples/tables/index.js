@@ -20,12 +20,44 @@ class Index extends React.Component {
     render() {
         return (
             <div>
-                <Table
-                    columns={TestDataModel.columns}
-                    data={TestDataModel.data}
-                    autoMergeCell={true}
-                    scroll={{ y: 100 }}
-                />
+
+                {/* <div style={{ padding: '0 20px', marginBottom: '15px' }} >
+                    <Table
+                        columns={TestDataModel.simpleColumns}
+                        data={TestDataModel.data}
+                        bordered={false}
+                    />
+                </div> */}
+
+                {/* 测试大量数据时的渲染速度 */}
+                <div style={{ padding: '0 20px', marginBottom: '15px' }} >
+                    <Table
+                        columns={TestDataModel.columns}
+                        data={TestDataModel.getLargeData()}
+                        autoMergeCell={true}
+
+                    />
+                </div>
+
+                {/* <div style={{ padding: '0 20px', marginBottom: '15px' }} >
+                    <Table
+                        columns={TestDataModel.columns}
+                        data={TestDataModel.data}
+                        autoMergeCell={true}
+                        bordered={false}
+                    />
+                </div> */}
+
+                {/* <div style={{ padding: '0 20px', marginBottom: '15px', width: '800px' }} >
+                    <Table
+                        columns={TestDataModel.columns}
+                        data={TestDataModel.data}
+                        autoMergeCell={true}
+                        scroll={{ y: 500, x: 1200 }}
+                        locale={{ emptyText: '暂无数据' }}
+                        bordered={true}
+                    />
+                </div> */}
             </div>
         )
     };

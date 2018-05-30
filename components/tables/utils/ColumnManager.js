@@ -42,7 +42,7 @@ function calculateRowSpanAndColSapn(columns, currentRow = 0, parentColumn = {}, 
 }
 
 //将树形结构的叶子项扁平化处理，它这个写得比我以前写的好，我以前写的是calculateRowSpanAndColSapn 与 flattenColumns一起获取的递归，这个分两步后简化了逻辑，代码很简单
-function flattenColumns(columns) {
+function flattenColumns(columns = []) {
     const newColumns = [];
     columns.forEach(column => {
         if (!column.children) {
@@ -55,10 +55,12 @@ function flattenColumns(columns) {
     return newColumns;
 }
 
+// 为了研究性能优化方面的事情，先去掉函数缓存的代码
 class ColumnManager {
 
     constructor(columns) {
-        this.columns = columns
+        this.columns = columns,
+        this.cached = {} // 缓存
     }
 
     groupedColumns() {

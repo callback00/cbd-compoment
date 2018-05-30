@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
-import ColGroup from './commons/ColGroup'
+import TableTbody from './commons/TableTbody'
+import ColGroup from './commons/ColGroup';
 import DataManager from './utils/DataManager'
 import ColumnManager from './utils/ColumnManager';
 
@@ -10,70 +11,38 @@ class BodyTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
         };
 
         this.dataManager = new DataManager(this.props.data);
         this.columnManager = new ColumnManager(this.props.columns);
     }
 
-    renderCell(row, rowIndex, columns) {
-        const cells = [];
+    render() {
+        const { prefixCls, bordered, autoMergeCell, scroll } = this.props;
 
-        let i = 0
-        // 如果直接遍历row的属性会出现属性顺序问题
+        const columns = this.columnManager.getLeafColumns()
+        const data = this.dataManager.groupedData(columns, autoMergeCell)
 
-        columns.forEach((columnItem, index) => {
-            const key = columnItem.dataIndex || columnItem.key
-            if (row[key].visible) {
+        const maxHeight = scroll.y || 'auto'
+        const width = scroll.x || 'auto'
 
-                const temp = typeof row[key].value
+        const overflowY = scroll.y ? 'scroll' : 'auto'
+        const overflowX = scroll.x ? 'auto' : 'hidden'
 
-                const cell = (
-                    <td key={index} rowSpan={row[key].rowSpan} >
-                        {
-                            typeof row[key].value === 'function'
-                                ? row[key].value(row.orgRecord[key], row.orgRecord, rowIndex)
-                                : row[key].value
-                        }
-                    </td>
-                );
-                cells.push(cell)
-            }
+        var cls = classNames({
+            [`${prefixCls}-body`]: true
         });
 
-        return (cells)
-    }
-
-    renderRow(data, columns) {
-        const rows = data.map((row, rowIndex) => {
-            return (
-                <tr key={`row-${rowIndex}`} >
-                    {
-                        this.renderCell(row, rowIndex, columns)
-                    }
-                </tr>
-            )
-        })
-
-        return rows
-    }
-
-    render() {
-        const { prefixCls, autoMergeCell, scroll } = this.props;
-        const columns = this.columnManager.getLeafColumns()
-        const newData = this.dataManager.groupedData(columns, autoMergeCell)
-
         return (
-            <div className={`${prefixCls}-body`} >
-                <table>
-                    <ColGroup columns={columns} />
-                    <tbody>
-                        {
-                            this.renderRow(newData, columns)
-                        }
-                    </tbody>
-                </table>
+            // 这一层的作用是出现滚动条时仍有底边框
+            <div className={`${prefixCls}-scroll-body`}>
+                <div style={{ maxHeight, overflowY, overflowX }} className={cls} onScroll={this.props.handleBodyScroll} >
+                    <table style={{ width }} >
+                        <ColGroup columns={columns} />
+                        <TableTbody prefixCls={prefixCls} autoMergeCell={autoMergeCell} scroll={scroll} columns={columns} data={data} />
+                    </table>
+
+                </div>
             </div>
         )
     }
