@@ -17,7 +17,7 @@ class Index extends React.Component {
     changeData() {
         const changeFlag = !this.state.changeFlag;
         this.setState({
-            // changeFlag
+            changeFlag
         });
     }
 
@@ -37,10 +37,10 @@ class Index extends React.Component {
                 {/* 测试大量数据时的渲染速度 */}
                 <div style={{ padding: '0 20px', marginBottom: '15px' }} >
                     <Table
-                        columns={TestDataModel.simpleColumns}
+                        columns={TestDataModel.columns}
                         data={this.state.changeFlag ? TestDataModel.getLargeData() : TestDataModel.data}
                         autoMergeCell={true}
-                        scroll={{ x: 1200 }}
+                        scroll={{ x: '130%', y: 400 }}
                     />
                 </div>
 

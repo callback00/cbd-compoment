@@ -5,6 +5,9 @@ import HeadTable from './HeadTable'
 import BodyTable from './BodyTable'
 import SimpleTable from './SimpleTable'
 
+import DataManager from './utils/DataManager'
+import ColumnManager from './utils/ColumnManager';
+
 class Table extends React.Component {
     constructor(props) {
         super(props);
@@ -14,8 +17,22 @@ class Table extends React.Component {
 
         this.handleBodyScroll = this.handleBodyScroll.bind(this);
         this.saveRef = this.saveRef.bind(this);
+
+        // 以参数的形式传递给子组件，感觉这样的方式不是很好，但是还没找到更好的解决方案
+        this.dataManager = new DataManager(this.props.data);
+        this.columnManager = new ColumnManager(this.props.columns);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.data !== this.props.data) {
+            this.dataManager = new DataManager(nextProps.data);
+        }
+        if (nextProps.columns !== this.props.columns) {
+            this.columnManager = new ColumnManager(nextProps.columns);
+        }
+    }
+
+    // 用于获取子组件内的元素实例，目前只用在处理同步滚动条时
     saveRef(name, item) {
         this[name] = item
     }
@@ -38,6 +55,10 @@ class Table extends React.Component {
         // 如果单元格内有滚动事件也会触发，事件冒泡引起的
         if (e.currentTarget !== target) {
             return;
+        }
+
+        if (this['headTable-left']) {
+            this['headTable-left'].scrollTop = target.scrollTop;
         }
     }
 
@@ -80,14 +101,15 @@ class Table extends React.Component {
     renderMainTable() {
         // 由于返回的是数组，返回的组件key必须要写，否则报警告‘Each child in an array or iterator should have a unique "key" prop’，因为renderTable返回的是数组类型的组件
         const table = [
-            this.renderTable(),
+            this.renderTable({}),
             this.renderEmptyText(),
         ];
 
         return table;
     }
 
-    renderTable() {
+    renderTable(options) {
+        const { fixed } = options
         const { prefixCls, bordered, columns, data, autoMergeCell, scroll = {} } = this.props;
 
         const isAnyColumnsFixed = columns.some(column => !!column.fixed);
@@ -100,9 +122,10 @@ class Table extends React.Component {
                     key="head"
                     saveRef={this.saveRef}
                     bordered={bordered}
-                    columns={columns}
+                    columnManager={this.columnManager}
                     prefixCls={prefixCls}
                     scroll={scroll}
+                    fixed={fixed}
                     handleBodyScrollLeft={this.handleBodyScrollLeft}
                 />
             );
@@ -112,10 +135,11 @@ class Table extends React.Component {
                     key="body"
                     prefixCls={prefixCls}
                     bordered={bordered}
-                    columns={columns}
-                    data={data}
+                    dataManager={this.dataManager}
+                    columnManager={this.columnManager}
                     autoMergeCell={autoMergeCell}
                     scroll={scroll}
+                    fixed={fixed}
                     handleBodyScroll={this.handleBodyScroll}
                 />
             );
@@ -134,9 +158,28 @@ class Table extends React.Component {
             return ScrollTable;
         } else {
             return (
-                <SimpleTable key={'simple'} prefixCls={prefixCls} bordered={bordered} autoMergeCell={autoMergeCell} columns={columns} data={data} />
+                <SimpleTable
+                    key={'simple'}
+                    prefixCls={prefixCls}
+                    bordered={bordered}
+                    autoMergeCell={autoMergeCell}
+                    dataManager={this.dataManager}
+                    columnManager={this.columnManager}
+                />
             )
         }
+    }
+
+    renderLeftFixedTable() {
+        const { prefixCls, columns } = this.props;
+        const isAnyLeftColumnsFixed = columns.some(column => column.fixed === 'left');
+
+        return (
+            isAnyLeftColumnsFixed ?
+                <div className={`${prefixCls}-fixed-left`}>
+                    {this.renderTable({ fixed: 'left' })}
+                </div> : null
+        );
     }
 
     renderFooter() {
@@ -161,10 +204,6 @@ class Table extends React.Component {
             ['bordered']: this.props.bordered,
         });
 
-        // 不做固定列先
-        const hasLeftFixed = false;
-        const hasRightFixed = false;
-
         return (
             <div
                 className={mainCls}
@@ -173,8 +212,8 @@ class Table extends React.Component {
                 {this.renderTitle()}
                 <div className={contentCls}>
                     {this.renderMainTable()}
-                    {hasLeftFixed && this.renderLeftFixedTable()}
-                    {hasRightFixed && this.renderRightFixedTable()}
+                    {this.renderLeftFixedTable()}
+                    {/* {this.renderRightFixedTable()} */}
                 </div>
 
                 {this.renderFooter()}

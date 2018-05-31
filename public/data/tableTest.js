@@ -10,7 +10,8 @@ const columns = [
         title: '姓名',
         dataIndex: 'name',
         key: 'name',
-        width: 100
+        width: 100,
+        fixed: 'left'
     },
     {
         title: '其他信息',

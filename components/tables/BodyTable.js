@@ -13,24 +13,15 @@ class BodyTable extends React.Component {
         this.state = {
         };
 
-        this.dataManager = new DataManager(this.props.data);
-        this.columnManager = new ColumnManager(this.props.columns);
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.data !== this.props.data){
-            this.dataManager = new DataManager(nextProps.data);
-        }
-        if(nextProps.columns !== this.props.columns){
-            this.columnManager = new ColumnManager(nextProps.columns);
-        }
+        // this.dataManager = new DataManager(this.props.data);
+        // this.columnManager = new ColumnManager(this.props.columns);
     }
 
     render() {
-        const { prefixCls, bordered, autoMergeCell, scroll } = this.props;
+        const { prefixCls, bordered, autoMergeCell, scroll, fixed } = this.props;
 
-        const columns = this.columnManager.getLeafColumns()
-        const data = this.dataManager.groupedData(columns, autoMergeCell)
+        const columns = this.props.columnManager.getLeafColumns()
+        const data = this.props.dataManager.groupedData(columns, autoMergeCell)
 
         const maxHeight = scroll.y || 'auto'
         const width = scroll.x || 'auto'
@@ -48,7 +39,7 @@ class BodyTable extends React.Component {
                 <div style={{ maxHeight, overflowY, overflowX }} className={cls} onScroll={this.props.handleBodyScroll} >
                     <table style={{ width }} >
                         <ColGroup columns={columns} />
-                        <TableTbody prefixCls={prefixCls} autoMergeCell={autoMergeCell} scroll={scroll} columns={columns} data={data} />
+                        <TableTbody prefixCls={prefixCls} columns={columns} data={data} fixed={fixed} />
                     </table>
 
                 </div>

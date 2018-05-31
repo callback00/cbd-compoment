@@ -12,14 +12,14 @@ class HeadTable extends React.Component {
         this.state = {
         };
 
-        this.columnManager = new ColumnManager(this.props.columns);
+        // this.columnManager = new ColumnManager(this.props.columns);
     }
 
     render() {
 
-        const { prefixCls, bordered, scroll = {} } = this.props;
+        const { prefixCls, bordered, fixed, scroll = {} } = this.props;
         // 获取新columns，格式与原始数据一致，多了rowspan和colspan而已
-        const columns = this.columnManager.groupedColumns();
+        const columns = this.props.columnManager.groupedColumns();
 
         const overflowY = scroll.y ? 'scroll' : 'auto'
         const width = scroll.x || 'auto'
@@ -28,11 +28,12 @@ class HeadTable extends React.Component {
             [`${prefixCls}-head`]: true
         });
 
+        const refName = fixed ? `headTable-${fixed}` : 'headTable'
         return (
-            <div ref={(element) => { this.props.saveRef('headTable', element) }} style={{ overflowY, overflowX: 'hidden' }} onScroll={this.props.handleSynchroBodyScroll} className={cls}>
+            <div ref={(element) => { this.props.saveRef(refName, element) }} style={{ overflowY, overflowX: 'hidden' }} onScroll={this.props.handleSynchroBodyScroll} className={cls}>
                 <table style={{ width }} >
-                    <ColGroup columns={this.columnManager.getLeafColumns()} />
-                    <TableHeader prefixCls={prefixCls} bordered={bordered} columns={columns} />
+                    <ColGroup columns={this.props.columnManager.getLeafColumns()} />
+                    <TableHeader prefixCls={prefixCls} bordered={bordered} columns={columns} fixed={fixed} />
                 </table>
             </div>
         )

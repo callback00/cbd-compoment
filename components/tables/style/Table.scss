@@ -6,7 +6,6 @@ $prefixCls:'cbd-table';
         width: 100%;
         box-sizing: border-box;
         border-radius: $radius $radius 0 0;
-
         &.bordered {
             border-left: 1px solid #d7dde4; // 不能在这里加border-right然后去掉最后一个td或th的border-right，因为在判断合并单元格时会存在问题
             table tr th,
@@ -25,6 +24,7 @@ $prefixCls:'cbd-table';
             border-collapse: separate; // 如果直接设置合并边框就无法设置圆角
             border-spacing: 0;
             word-break: break-all;
+            white-space: normal;
             border-radius: $radius $radius 0 0;
         }
         table tr th,

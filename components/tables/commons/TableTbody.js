@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-function renderCell(row, rowIndex, columns) {
+function renderCell(row, rowIndex, columns, fixed) {
     const cells = [];
 
     let i = 0
@@ -26,19 +26,27 @@ function renderCell(row, rowIndex, columns) {
                     }
                 </td>
             );
-            cells.push(cell)
+
+            //如果是固定列的表格
+            if (fixed) {
+                if (fixed === columnItem.fixed) {
+                    cells.push(cell)
+                }
+            } else {
+                cells.push(cell)
+            }
         }
     });
 
     return (cells)
 }
 
-function renderRow(data, columns) {
+function renderRow(data, columns, fixed) {
     const rows = data.map((row, rowIndex) => {
         return (
             <tr key={`row-${rowIndex}`} >
                 {
-                    renderCell(row, rowIndex, columns)
+                    renderCell(row, rowIndex, columns, fixed)
                 }
             </tr>
         )
@@ -48,12 +56,12 @@ function renderRow(data, columns) {
 }
 
 export default function TableTbody(props) {
-    const { prefixCls, autoMergeCell, scroll, columns, data } = props;
+    const { prefixCls, columns, data, fixed } = props;
 
     return (
         <tbody>
             {
-                renderRow(data, columns)
+                renderRow(data, columns, fixed)
             }
         </tbody>
     )

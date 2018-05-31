@@ -41,6 +41,7 @@ function renderHeadRow(rows, bordered) {
                 {
                     rowColumns.map((column, index) => {
                         const style = !bordered && !column.isLeaf ? { borderBottom: 'none' } : {}
+
                         return (
                             <th style={style} key={`${rowIndex}-${index}`} rowSpan={column.rowSpan || 1} colSpan={column.colSpan || 1} >{column.title}</th>
                         )
@@ -71,11 +72,10 @@ export default function TableHeader(props) {
 
 TableHeader.propTypes = {
     prefixCls: PropTypes.string,
-    fixed: PropTypes.bool,
+    fixed: PropTypes.string,
     columns: PropTypes.array.isRequired,
 };
 
 TableHeader.defaultProps = {
-    fixed: false,
     columns: []
 };
