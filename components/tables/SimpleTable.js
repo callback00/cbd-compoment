@@ -25,7 +25,6 @@ class HeadTable extends React.Component {
         const fixed = scroll.y ? true : false
 
         const headerColumns = this.columnManager.groupedColumns();
-
         const columns = this.columnManager.getLeafColumns()
         const data = this.dataManager.groupedData(columns, autoMergeCell)
 

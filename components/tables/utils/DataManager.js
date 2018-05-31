@@ -1,4 +1,45 @@
-import {warningOnce} from './UtilTools'
+import { warningOnce } from './UtilTools'
+
+
+// 用闭包来写
+function MergeCell(key, mergeData, firstKey, startRowIndex = 0, nextRowIndex = 1) {
+    if (nextRowIndex > mergeData.length - 1) {
+        return
+    }
+
+    //程序是自左向右合并,如果第一列不同不合并
+    // firstKey是外层函数的变量
+    if (mergeData[startRowIndex][key].isDataColumn // 是否是数据列
+        && mergeData[startRowIndex][key].value === mergeData[nextRowIndex][key].value //上下单元格的值是否相同
+        && mergeData[startRowIndex][firstKey].value === mergeData[nextRowIndex][firstKey].value) { //只有第一列相同的数据才合并
+
+        mergeData[startRowIndex][key].rowSpan += 1
+
+        mergeData[nextRowIndex][key].visible = false
+
+        return function () {
+            return MergeCell(key, mergeData, firstKey, startRowIndex, nextRowIndex + 1)
+        }
+    } else {
+        startRowIndex = nextRowIndex
+        nextRowIndex += 1
+        return function () {
+            return MergeCell(key, mergeData, firstKey, startRowIndex, nextRowIndex)
+        }
+    }
+}
+
+// 蹦床函数
+function trampoline(func, key, mergeData, firstKey) {
+    var value = func(key, mergeData, firstKey);
+
+    while (typeof value === "function") {
+        value = value();
+    }
+
+    return value;
+}
+
 class DataManager {
 
     constructor(data) {
@@ -40,31 +81,6 @@ class DataManager {
             mergeData.push(newItem)
         });
 
-        // 用闭包来写
-        const MergeCell = function (key, startRowIndex = 0, nextRowIndex = 1) {
-            if (nextRowIndex > mergeData.length - 1) {
-                return
-            }
-
-            //程序是自左向右合并,如果第一列不同不合并
-            // firstKey是外层函数的变量
-
-            if (mergeData[startRowIndex][key].isDataColumn // 是否是数据列
-                && mergeData[startRowIndex][key].value === mergeData[nextRowIndex][key].value //上下单元格的值是否相同
-                && mergeData[startRowIndex][firstKey].value === mergeData[nextRowIndex][firstKey].value) { //只有第一列相同的数据才合并
-
-                mergeData[startRowIndex][key].rowSpan += 1
-
-                mergeData[nextRowIndex][key].visible = false
-
-                MergeCell(key, startRowIndex, nextRowIndex + 1)
-            } else {
-                startRowIndex = nextRowIndex
-                nextRowIndex += 1
-
-                MergeCell(key, startRowIndex, nextRowIndex)
-            }
-        }
 
         // 如果不需要合并数据，则直接返回
         if (!autoMergeCell) {
@@ -77,7 +93,8 @@ class DataManager {
                 firstKey = columns[0].key
             }
             // 此处重新修改mergeData的rowSpan
-            MergeCell(columns[i].key)
+            // MergeCell(columns[i].key)
+            trampoline(MergeCell(columns[i].key, mergeData, firstKey))
         }
 
         return mergeData

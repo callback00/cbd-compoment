@@ -10,16 +10,21 @@ class Index extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            changeFlag: false
         }
     }
 
-    componentDidMount() {
-
+    changeData() {
+        const changeFlag = !this.state.changeFlag;
+        this.setState({
+            // changeFlag
+        });
     }
 
     render() {
         return (
             <div>
+                <button onClick={this.changeData.bind(this)} >改变数据</button>
 
                 {/* <div style={{ padding: '0 20px', marginBottom: '15px' }} >
                     <Table
@@ -32,10 +37,10 @@ class Index extends React.Component {
                 {/* 测试大量数据时的渲染速度 */}
                 <div style={{ padding: '0 20px', marginBottom: '15px' }} >
                     <Table
-                        columns={TestDataModel.columns}
-                        data={TestDataModel.getLargeData()}
+                        columns={TestDataModel.simpleColumns}
+                        data={this.state.changeFlag ? TestDataModel.getLargeData() : TestDataModel.data}
                         autoMergeCell={true}
-
+                        scroll={{ x: 1200 }}
                     />
                 </div>
 

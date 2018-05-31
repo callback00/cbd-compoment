@@ -17,6 +17,15 @@ class BodyTable extends React.Component {
         this.columnManager = new ColumnManager(this.props.columns);
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.data !== this.props.data){
+            this.dataManager = new DataManager(nextProps.data);
+        }
+        if(nextProps.columns !== this.props.columns){
+            this.columnManager = new ColumnManager(nextProps.columns);
+        }
+    }
+
     render() {
         const { prefixCls, bordered, autoMergeCell, scroll } = this.props;
 

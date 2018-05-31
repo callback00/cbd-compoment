@@ -158,68 +158,81 @@ const data = [
 
 const simpleColumns = [
     {
-        title: 'Name',
+        title: '姓名',
         dataIndex: 'name',
         key: 'name',
         width: 100
     },
+
     {
-        title: 'Building',
+        title: '年龄',
+        dataIndex: 'age',
+        key: 'age',
+        width: 50
+    },
+    {
+        title: '街道',
+        dataIndex: 'street',
+        key: 'street',
+        width: 200
+    },
+    {
+        title: '建筑',
         dataIndex: 'building',
         key: 'building',
         width: 100
     },
     {
-        title: 'Door No.',
+        title: '门牌号',
         dataIndex: 'number',
         key: 'number',
         width: 100
     },
     {
-        title: 'Company Address',
+        title: '公司地址',
         dataIndex: 'companyAddress',
         key: 'companyAddress'
     },
     {
-        title: 'Company Name',
+        title: '公司名称',
         dataIndex: 'companyName',
         key: 'companyName'
     },
-    // {
-    //     title: (
-    //         <a href='#' onClick={genderOnClick} >
-    //             Gender
-    //         </a>
-    //     ),
-    //     dataIndex: 'gender',
-    //     key: 'gender',
-    //     width: 60
-    // },
-    // {
-    //     title: 'Operations',
-    //     dataIndex: '',
-    //     key: '1',
-    //     width: 160,
-    //     render() {
-    //         return <a href="#">Operations</a>;
-    //     },
-    // },
-    // {
-    //     title: 'customer render',
-    //     dataIndex: '',
-    //     key: '2',
-    //     width: 160,
-    //     render(text, row, index) {
-    //         return (
-    //             <input style={{ width: '100%', boxSizing: 'border-box' }} />
-    //         );
-    //     },
-    // }
+    {
+        title: (
+            <a href='#' onClick={genderOnClick} >
+                性别
+            </a>
+        ),
+        dataIndex: 'gender',
+        key: 'gender',
+        width: 60
+    },
+    {
+        title: '操作',
+        dataIndex: '',
+        key: '1',
+        width: 160,
+        render() {
+            return <a href="#">Operations</a>;
+        },
+    },
+    {
+        title: '自定义渲染',
+        dataIndex: '',
+        key: '2',
+        width: 160,
+        render(text, row, index) {
+            return (
+                <input style={{ width: '100%', boxSizing: 'border-box' }} />
+            );
+        },
+    }
 ]
 
 function getLargeData() {
     const largeData = []
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 10; i++) {
         largeData.push(...data);
     }
 
