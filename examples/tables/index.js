@@ -40,7 +40,7 @@ class Index extends React.Component {
                         columns={TestDataModel.columns}
                         data={this.state.changeFlag ? TestDataModel.getLargeData() : TestDataModel.data}
                         autoMergeCell={true}
-                        scroll={{ x: '130%', y: 400 }}
+                        scroll={{ x: 800, y: 400 }}
                     />
                 </div>
 

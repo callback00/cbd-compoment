@@ -17,7 +17,8 @@ class Table extends React.Component {
         };
 
         // 共享数据
-        this.pubStore = createPubStore()
+        this.pubStore = createPubStore();
+        this.lastScrollLeft = 0
 
         this.handleBodyScroll = this.handleBodyScroll.bind(this);
         this.saveRef = this.saveRef.bind(this);
@@ -37,7 +38,15 @@ class Table extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.pubStore)
+        if (this['tbodyTable'] && this['tbodyTable'].offsetHeight - this['tbodyTable'].clientHeight > 0) {
+            this['tbodyTable-left'].style['overflowX'] = 'scroll'
+        }
+    }
+
+    componentDidUpdate() {
+        if (this['tbodyTable'] && this['tbodyTable'].offsetHeight - this['tbodyTable'].clientHeight > 0) {
+            this['tbodyTable-left'].style['overflowX'] = 'scroll'
+        }
     }
 
     // 用于获取子组件内的元素实例，目前只用在处理同步滚动条时
@@ -53,9 +62,12 @@ class Table extends React.Component {
         if (e.currentTarget !== target) {
             return;
         }
+        // this.headTable 由 HeadTable组件返回的名字,this['tbodyTable']在body里返回
+        if (target === this['tbodyTable']) {
+            this.headTable.scrollLeft = target.scrollLeft;
+        }
 
-        // this.headTable 由 HeadTable组件返回的名字
-        this.headTable.scrollLeft = target.scrollLeft;
+        this.lastScrollLeft = target.scrollLeft;
     }
 
     handleBodyScrollTop(e) {

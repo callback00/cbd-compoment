@@ -50,11 +50,15 @@ $prefixCls:'cbd-table';
         }
         
         .#{$prefixCls}-scroll {
-            overflow-x: hidden;
+            overflow: hidden;
 
             &.fixed {
                 position: absolute;
                 top: 0;
+
+                table{
+                    background: #fff;
+                }
             }
 
             .#{$prefixCls}-head {
@@ -90,6 +94,11 @@ $prefixCls:'cbd-table';
                 position: absolute;
                 border-bottom: 1px solid #d7dde4;
                 display: block;
+            }
+
+            &.fixed{
+                margin-bottom: -17px;
+                
             }
         }
         .#{$prefixCls}-placeholder {
