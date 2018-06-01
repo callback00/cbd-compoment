@@ -48,9 +48,21 @@ $prefixCls:'cbd-table';
                 }
             }
         }
+        
         .#{$prefixCls}-scroll {
             overflow-x: hidden;
+
+            &.fixed {
+                position: absolute;
+                top: 0;
+            }
+
             .#{$prefixCls}-head {
+                &.fixed {
+                    table {
+                        min-width: auto;
+                    }
+                }
                 table thead tr {
                     &:first-child {
                         th {

@@ -11,29 +11,37 @@ class HeadTable extends React.Component {
         super(props);
         this.state = {
         };
-
-        // this.columnManager = new ColumnManager(this.props.columns);
     }
 
     render() {
 
         const { prefixCls, bordered, fixed, scroll = {} } = this.props;
         // 获取新columns，格式与原始数据一致，多了rowspan和colspan而已
-        const columns = this.props.columnManager.groupedColumns();
+        let columns = this.props.columnManager.groupedColumns();
 
-        const overflowY = scroll.y ? 'scroll' : 'auto'
-        const width = scroll.x || 'auto'
+        let overflowY = scroll.y ? 'scroll' : 'auto'
+        let width = scroll.x || 'auto'
 
         var cls = classNames({
-            [`${prefixCls}-head`]: true
+            [`${prefixCls}-head`]: true,
+            ['fixed']: fixed ? true : false
         });
+
+        let leafColumns = this.props.columnManager.getLeafColumns();
+
+        // fixed的table要处理下宽度的样式
+        if (fixed) {
+            width = 'auto';
+            overflowY = 'auto';
+            leafColumns = leafColumns.filter(columns => columns.fixed === fixed);
+        }
 
         const refName = fixed ? `headTable-${fixed}` : 'headTable'
         return (
             <div ref={(element) => { this.props.saveRef(refName, element) }} style={{ overflowY, overflowX: 'hidden' }} onScroll={this.props.handleSynchroBodyScroll} className={cls}>
                 <table style={{ width }} >
-                    <ColGroup columns={this.props.columnManager.getLeafColumns()} />
-                    <TableHeader prefixCls={prefixCls} bordered={bordered} columns={columns} fixed={fixed} />
+                    <ColGroup columns={leafColumns} />
+                    <TableHeader prefixCls={prefixCls} bordered={bordered} columns={columns} fixed={fixed} pubStore={this.props.pubStore} />
                 </table>
             </div>
         )

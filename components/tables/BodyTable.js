@@ -18,28 +18,42 @@ class BodyTable extends React.Component {
     }
 
     render() {
-        const { prefixCls, bordered, autoMergeCell, scroll, fixed } = this.props;
+        const { prefixCls, bordered, autoMergeCell, scroll, fixed, pubStore } = this.props;
 
-        const columns = this.props.columnManager.getLeafColumns()
-        const data = this.props.dataManager.groupedData(columns, autoMergeCell)
+        let columns = this.props.columnManager.getLeafColumns();
 
-        const maxHeight = scroll.y || 'auto'
-        const width = scroll.x || 'auto'
+        const data = this.props.dataManager.groupedData(columns, autoMergeCell);
 
-        const overflowY = scroll.y ? 'scroll' : 'auto'
-        const overflowX = scroll.x ? 'auto' : 'hidden'
+        const maxHeight = scroll.y || 'auto';
+        let width = scroll.x || 'auto';
 
-        var cls = classNames({
+        let overflowY = scroll.y ? 'scroll' : 'auto';
+        let overflowX = scroll.x ? 'auto' : 'hidden';
+
+        if (fixed) {
+            columns = columns.filter(columns => columns.fixed === fixed);
+            width = 'auto';
+            overflowY = 'hidden';
+        }
+
+        const divcls = classNames({
+            [`${prefixCls}-scroll-body`]: true,
+            [`fixed`]: fixed ? true : false
+        });
+
+        const cls = classNames({
             [`${prefixCls}-body`]: true
         });
 
+        const refName = fixed ? `tbodyTable-${fixed}` : 'tbodyTable'
+
         return (
             // 这一层的作用是出现滚动条时仍有底边框
-            <div className={`${prefixCls}-scroll-body`}>
-                <div style={{ maxHeight, overflowY, overflowX }} className={cls} onScroll={this.props.handleBodyScroll} >
+            <div className={divcls}>
+                <div ref={(element) => { this.props.saveRef(refName, element) }} style={{ maxHeight, overflowY, overflowX }} className={cls} onScroll={this.props.handleBodyScroll} >
                     <table style={{ width }} >
                         <ColGroup columns={columns} />
-                        <TableTbody prefixCls={prefixCls} columns={columns} data={data} fixed={fixed} />
+                        <TableTbody prefixCls={prefixCls} columns={columns} data={data} fixed={fixed} pubStore={pubStore} />
                     </table>
 
                 </div>

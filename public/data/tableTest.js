@@ -29,7 +29,7 @@ const columns = [
                         title: '街道',
                         dataIndex: 'street',
                         key: 'street',
-                        width: 200
+                        width: 200,
                     },
                     {
                         title: '区域',
@@ -75,13 +75,15 @@ const columns = [
         ),
         dataIndex: 'gender',
         key: 'gender',
-        width: 60
+        width: 60,
+        // fixed: 'left'
     },
     {
         title: '操作',
         dataIndex: '',
         key: '1',
         width: 160,
+        // fixed: 'left',
         render() {
             return <a href="#">Operations</a>;
         },
@@ -109,7 +111,7 @@ const data = [
         number: '101',
         companyAddress: '五一路淡村市场',
         companyName: '了一家科技公司',
-        gender: {}
+        gender: '男'
     },
     {
         id: '2',

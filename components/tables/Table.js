@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import HeadTable from './HeadTable'
 import BodyTable from './BodyTable'
 import SimpleTable from './SimpleTable'
 
 import DataManager from './utils/DataManager'
 import ColumnManager from './utils/ColumnManager';
+import createPubStore from './utils/PubStore'
 
 class Table extends React.Component {
     constructor(props) {
@@ -14,6 +15,9 @@ class Table extends React.Component {
 
         this.state = {
         };
+
+        // 共享数据
+        this.pubStore = createPubStore()
 
         this.handleBodyScroll = this.handleBodyScroll.bind(this);
         this.saveRef = this.saveRef.bind(this);
@@ -30,6 +34,10 @@ class Table extends React.Component {
         if (nextProps.columns !== this.props.columns) {
             this.columnManager = new ColumnManager(nextProps.columns);
         }
+    }
+
+    componentDidMount() {
+        console.log(this.pubStore)
     }
 
     // 用于获取子组件内的元素实例，目前只用在处理同步滚动条时
@@ -57,8 +65,8 @@ class Table extends React.Component {
             return;
         }
 
-        if (this['headTable-left']) {
-            this['headTable-left'].scrollTop = target.scrollTop;
+        if (this['tbodyTable-left']) {
+            this['tbodyTable-left'].scrollTop = target.scrollTop;
         }
     }
 
@@ -126,6 +134,7 @@ class Table extends React.Component {
                     prefixCls={prefixCls}
                     scroll={scroll}
                     fixed={fixed}
+                    pubStore={this.pubStore}
                     handleBodyScrollLeft={this.handleBodyScrollLeft}
                 />
             );
@@ -133,6 +142,7 @@ class Table extends React.Component {
             const bodyTable = (
                 <BodyTable
                     key="body"
+                    saveRef={this.saveRef}
                     prefixCls={prefixCls}
                     bordered={bordered}
                     dataManager={this.dataManager}
@@ -140,12 +150,19 @@ class Table extends React.Component {
                     autoMergeCell={autoMergeCell}
                     scroll={scroll}
                     fixed={fixed}
+                    pubStore={this.pubStore}
                     handleBodyScroll={this.handleBodyScroll}
                 />
             );
 
+            const cls = classNames({
+                [`${prefixCls}-scroll`]: true,
+                [`fixed`]: fixed ? true : false,
+                [`${fixed}`]: fixed ? true : false
+            })
+
             const ScrollTable = (
-                <div key='scrolltable' className={`${prefixCls}-scroll`} >
+                <div key='scrolltable' className={cls} >
                     {
                         headTable
                     }
@@ -176,9 +193,7 @@ class Table extends React.Component {
 
         return (
             isAnyLeftColumnsFixed ?
-                <div className={`${prefixCls}-fixed-left`}>
-                    {this.renderTable({ fixed: 'left' })}
-                </div> : null
+                this.renderTable({ fixed: 'left' }) : null
         );
     }
 
@@ -194,12 +209,12 @@ class Table extends React.Component {
     }
 
     render() {
-        const mainCls = classnames({
+        const mainCls = classNames({
             [`${this.props.prefixCls}`]: true,
             [this.props.className]: !!this.props.className,
         });
 
-        const contentCls = classnames({
+        const contentCls = classNames({
             [`${this.props.prefixCls}-content`]: true,
             ['bordered']: this.props.bordered,
         });
