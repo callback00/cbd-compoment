@@ -1,5 +1,7 @@
 
-import lodash from 'lodash'
+/* start
+用于存储公共资源的类
+end */
 
 class pubStore {
     constructor(props) {
@@ -7,24 +9,21 @@ class pubStore {
         this.fixedTbodyRowHeightArry = [];
     }
 
-    // 设置固定列各行的行高
     setFixedHeaderRowHeightArry(rowIndex, height) {
         this.fixedHeaderRowHeightArry[rowIndex] = height
         console.log(height)
     }
 
-    // 获取固定列table的行高，它的高度由数据table列的行高决定
     getFixedHeaderRowHeightArry() {
         return [...this.fixedHeaderRowHeightArry]
     }
 
-    // 设置固定列各行的行高
+
     setFixedTbodyRowHeightArry(rowIndex, height) {
         this.fixedTbodyRowHeightArry[rowIndex] = height
-        console.log(height)
     }
 
-    // 获取固定列table的行高，它的高度由数据table列的行高决定
+
     getFixedTbodyRowHeightArry() {
         return [...this.fixedTbodyRowHeightArry]
     }

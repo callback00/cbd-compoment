@@ -6,6 +6,14 @@ class TableTbodyRow extends React.Component {
     }
 
     componentDidMount() {
+        this.handleFixedTableRowHeight();
+    }
+
+    componentDidUpdate() {
+        this.handleFixedTableRowHeight();
+    }
+
+    handleFixedTableRowHeight() {
         if (!this.props.fixed) {
             if (this.props.pubStore) {
                 const height = this.refItem.getBoundingClientRect().height
@@ -15,14 +23,6 @@ class TableTbodyRow extends React.Component {
 
             const fixedTbodyRowHeightArry = this.props.pubStore.getFixedTbodyRowHeightArry();
             let trHeight = 0;
-
-            // for (let i = 0; i < fixedTbodyRowHeightArry.length; i++) {
-            //     trHeight += fixedTbodyRowHeightArry[i]
-            // }
-
-            // if(this.refItem.cells.length >1){
-
-            // }
 
             this.refItem.style.height = fixedTbodyRowHeightArry[this.props.rowIndex] + 'px'
         }

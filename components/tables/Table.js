@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import debounce from 'lodash/debounce';
+
 import HeadTable from './HeadTable'
 import BodyTable from './BodyTable'
 import SimpleTable from './SimpleTable'
@@ -16,16 +18,18 @@ class Table extends React.Component {
         this.state = {
         };
 
-        // 共享数据
         this.pubStore = createPubStore();
-        this.lastScrollLeft = 0
-
-        this.handleBodyScroll = this.handleBodyScroll.bind(this);
-        this.saveRef = this.saveRef.bind(this);
 
         // 以参数的形式传递给子组件，感觉这样的方式不是很好，但是还没找到更好的解决方案
         this.dataManager = new DataManager(this.props.data);
         this.columnManager = new ColumnManager(this.props.columns);
+
+        this.handleBodyScroll = this.handleBodyScroll.bind(this);
+        this.saveRef = this.saveRef.bind(this);
+
+        this.debouncedResize = debounce(() => {
+            this.handleWindowResize()
+        }, 100);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -38,20 +42,37 @@ class Table extends React.Component {
     }
 
     componentDidMount() {
-        if (this['tbodyTable'] && this['tbodyTable'].offsetHeight - this['tbodyTable'].clientHeight > 0) {
-            this['tbodyTable-left'].style['overflowX'] = 'scroll'
-        }
+        this.handleFixedTableScrollBar();
+
+        addEventListener('resize', this.debouncedResize)
     }
 
     componentDidUpdate() {
+        this.handleFixedTableScrollBar()
+    }
+
+    handleFixedTableScrollBar() {
         if (this['tbodyTable'] && this['tbodyTable'].offsetHeight - this['tbodyTable'].clientHeight > 0) {
-            this['tbodyTable-left'].style['overflowX'] = 'scroll'
+            if (this.props.columns.some(column => column.fixed === 'left')) {
+                this['tbodyTable-left'].style['overflowX'] = 'scroll'
+            }
+            if (this.props.columns.some(column => column.fixed === 'right')) {
+                this['tbodyTable-right'].style['overflowX'] = 'scroll'
+            }
         }
     }
 
+    handleWindowResize() {
+        this.setState({
+            count: 1
+        })
+    }
+
     // 用于获取子组件内的元素实例，目前只用在处理同步滚动条时
-    saveRef(name, item) {
-        this[name] = item
+    saveRef(name, element) {
+        if(element){
+            this[name] = element
+        }
     }
 
     // 表头同步body的横向滚动条
@@ -102,6 +123,16 @@ class Table extends React.Component {
         ) : null;
     }
 
+    renderMainTable() {
+        // 由于返回的是数组，返回的组件key必须要写，否则报警告‘Each child in an array or iterator should have a unique "key" prop’，因为renderTable返回的是数组类型的组件
+        const table = [
+            this.renderTable({}),
+            this.renderEmptyText(),
+        ];
+
+        return table;
+    }
+
     renderEmptyText() {
         const { locale, prefixCls, data } = this.props;
         const { emptyText } = locale
@@ -116,16 +147,6 @@ class Table extends React.Component {
                 {typeof emptyText === 'function' ? emptyText() : emptyText}
             </div>
         );
-    }
-
-    renderMainTable() {
-        // 由于返回的是数组，返回的组件key必须要写，否则报警告‘Each child in an array or iterator should have a unique "key" prop’，因为renderTable返回的是数组类型的组件
-        const table = [
-            this.renderTable({}),
-            this.renderEmptyText(),
-        ];
-
-        return table;
     }
 
     renderTable(options) {
@@ -291,7 +312,6 @@ Table.propTypes = {
             cell: PropTypes.any,
         }),
     }),
-    // ...ExpandableTable.PropTypes,
 }
 
 Table.defaultProps = {
