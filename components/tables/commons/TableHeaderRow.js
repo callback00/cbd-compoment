@@ -23,7 +23,13 @@ class TableHeaderRow extends React.Component {
 
             const fixedHeaderRowHeightArry = this.props.pubStore.getFixedHeaderRowHeightArry();
             let trHeight = 0;
-            trHeight = fixedHeaderRowHeightArry[this.props.rowIndex]
+
+            for (const key in fixedHeaderRowHeightArry) {
+                trHeight += fixedHeaderRowHeightArry[key]
+            }
+
+            // trHeight = fixedHeaderRowHeightArry[this.props.rowIndex]
+
             this.refItem.style.height = trHeight + 'px'
         }
     }

@@ -249,7 +249,7 @@ const simpleColumns = [
 
 function getLargeData() {
     const largeData = []
-    for (let i = 0; i <50; i++) {
+    for (let i = 0; i <100; i++) {
         largeData.push(...data);
     }
 
