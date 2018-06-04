@@ -21,8 +21,8 @@ class Table extends React.Component {
         this.pubStore = createPubStore();
 
         // 以参数的形式传递给子组件，感觉这样的方式不是很好，但是还没找到更好的解决方案
-        this.dataManager = new DataManager(this.props.data);
-        this.columnManager = new ColumnManager(this.props.columns);
+        this.dataManager = new DataManager(props.data);
+        this.columnManager = new ColumnManager(props.columns);
 
         this.handleBodyScroll = this.handleBodyScroll.bind(this);
         this.saveRef = this.saveRef.bind(this);
@@ -30,6 +30,8 @@ class Table extends React.Component {
         this.debouncedResize = debounce(() => {
             this.handleWindowResize()
         }, 100);
+
+        this.lastScrollTop = 0;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -53,10 +55,10 @@ class Table extends React.Component {
 
     handleFixedTableScrollBar() {
         if (this['tbodyTable'] && this['tbodyTable'].offsetHeight - this['tbodyTable'].clientHeight > 0) {
-            if (this.props.columns.some(column => column.fixed === 'left')) {
+            if (this.props.columns.some(column => column.fixed === 'left') && this['tbodyTable-left']) {
                 this['tbodyTable-left'].style['overflowX'] = 'scroll'
             }
-            if (this.props.columns.some(column => column.fixed === 'right')) {
+            if (this.props.columns.some(column => column.fixed === 'right') && this['tbodyTable-right']) {
                 this['tbodyTable-right'].style['overflowX'] = 'scroll'
             }
         }
@@ -64,15 +66,7 @@ class Table extends React.Component {
 
     handleWindowResize() {
         this.setState({
-            count: 1
         })
-    }
-
-    // 用于获取子组件内的元素实例，目前只用在处理同步滚动条时
-    saveRef(name, element) {
-        if(element){
-            this[name] = element
-        }
     }
 
     // 表头同步body的横向滚动条
@@ -98,9 +92,23 @@ class Table extends React.Component {
             return;
         }
 
-        if (this['tbodyTable-left']) {
-            this['tbodyTable-left'].scrollTop = target.scrollTop;
+        // 这个if语句用于去抖，不去掉重复的赋值，在鼠标滚轮事件极快的时候会有严重的抖动，最后造成行不对齐
+        if (target.scrollTop !== this.lastScrollTop) {
+            if (this['tbodyTable-left'] && target !== this['tbodyTable-left']) {
+                this['tbodyTable-left'].scrollTop = target.scrollTop;
+            }
+
+            if (this['tbodyTable-right'] && target !== this['tbodyTable-right']) {
+                this['tbodyTable-right'].scrollTop = target.scrollTop;
+            }
+
+            if (this['tbodyTable'] && target !== this['tbodyTable']) {
+                this['tbodyTable'].scrollTop = target.scrollTop;
+            }
         }
+
+        this.lastScrollTop = target.scrollTop
+
     }
 
     handleBodyScroll(e) {
@@ -109,6 +117,13 @@ class Table extends React.Component {
 
         // 固定列同步滚动
         this.handleBodyScrollTop(e)
+    }
+
+    // 用于获取子组件内的元素实例，目前只用在处理同步滚动条时
+    saveRef(name, element) {
+        if (element) {
+            this[name] = element
+        }
     }
 
     renderTitle() {
@@ -195,7 +210,7 @@ class Table extends React.Component {
             })
 
             const ScrollTable = (
-                <div key='scrolltable' className={cls} >
+                <div key={`scrolltable${fixed ? `${fixed}` : ''}`} className={cls} >
                     {
                         headTable
                     }
@@ -230,6 +245,16 @@ class Table extends React.Component {
         );
     }
 
+    renderRightFixedTable() {
+        const { prefixCls, columns } = this.props;
+        const isAnyRightColumnsFixed = columns.some(column => column.fixed === 'right');
+
+        return (
+            isAnyRightColumnsFixed ?
+                this.renderTable({ fixed: 'right' }) : null
+        );
+    }
+
     renderFooter() {
         const { footer, prefixCls } = this.props;
         return footer ? (
@@ -261,7 +286,7 @@ class Table extends React.Component {
                 <div className={contentCls}>
                     {this.renderMainTable()}
                     {this.renderLeftFixedTable()}
-                    {/* {this.renderRightFixedTable()} */}
+                    {this.renderRightFixedTable()}
                 </div>
 
                 {this.renderFooter()}

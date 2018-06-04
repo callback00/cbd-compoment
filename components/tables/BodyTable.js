@@ -33,7 +33,7 @@ class BodyTable extends React.Component {
         if (fixed) {
             columns = columns.filter(columns => columns.fixed === fixed);
             width = 'auto';
-            overflowY = 'hidden';
+            // overflowY = 'hidden';
         }
 
         const divcls = classNames({
@@ -42,7 +42,8 @@ class BodyTable extends React.Component {
         });
 
         const cls = classNames({
-            [`${prefixCls}-body`]: true
+            [`${prefixCls}-body`]: true,
+            [`fixed-${fixed ? fixed : ''}`]: fixed ? true : false
         });
 
         const refName = fixed ? `tbodyTable-${fixed}` : 'tbodyTable'
@@ -50,7 +51,12 @@ class BodyTable extends React.Component {
         return (
             // 这一层的作用是出现滚动条时仍有底边框
             <div className={divcls}>
-                <div ref={(element) => { this.props.saveRef(refName, element) }} style={{ maxHeight, overflowY, overflowX }} className={cls} onScroll={this.props.handleBodyScroll} >
+                <div
+                    ref={(element) => { this.props.saveRef(refName, element) }}
+                    style={{ maxHeight, overflowY, overflowX }}
+                    className={cls}
+                    onScroll={this.props.handleBodyScroll}
+                >
                     <table style={{ width }} >
                         <ColGroup columns={columns} />
                         <TableTbody prefixCls={prefixCls} columns={columns} data={data} fixed={fixed} pubStore={pubStore} />

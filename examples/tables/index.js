@@ -26,13 +26,14 @@ class Index extends React.Component {
             <div>
                 <button onClick={this.changeData.bind(this)} >改变数据</button>
 
-                {/* <div style={{ padding: '0 20px', marginBottom: '15px' }} >
+                <div style={{ padding: '0 20px', marginBottom: '15px' }} >
                     <Table
-                        columns={TestDataModel.simpleColumns}
-                        data={TestDataModel.data}
-                        bordered={false}
+                        columns={TestDataModel.columns}
+                        data={TestDataModel.getLargeData()}
+                        autoMergeCell={true}
+                        scroll={{ x: 1800, y: 400 }}
                     />
-                </div> */}
+                </div>
 
                 {/* 测试大量数据时的渲染速度 */}
                 <div style={{ padding: '0 20px', marginBottom: '15px' }} >
@@ -40,7 +41,7 @@ class Index extends React.Component {
                         columns={TestDataModel.columns}
                         data={this.state.changeFlag ? TestDataModel.getLargeData() : TestDataModel.data}
                         autoMergeCell={true}
-                        scroll={{ x: 800, y: 400 }}
+                        scroll={{ x: 1800, y: 400 }}
                     />
                 </div>
 

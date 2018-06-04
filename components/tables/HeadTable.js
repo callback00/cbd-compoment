@@ -38,7 +38,7 @@ class HeadTable extends React.Component {
 
         const refName = fixed ? `headTable-${fixed}` : 'headTable'
         return (
-            <div ref={(element) => { this.props.saveRef(refName, element) }} style={{ overflowY, overflowX: 'hidden' }} onScroll={this.props.handleSynchroBodyScroll} className={cls}>
+            <div ref={(element) => { this.props.saveRef(refName, element) }} style={{ overflowY, overflowX: 'hidden' }} className={cls}>
                 <table style={{ width }} >
                     <ColGroup columns={leafColumns} />
                     <TableHeader prefixCls={prefixCls} bordered={bordered} columns={columns} fixed={fixed} pubStore={this.props.pubStore} />

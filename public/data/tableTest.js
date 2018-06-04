@@ -20,7 +20,8 @@ const columns = [
                 title: '年龄',
                 dataIndex: 'age',
                 key: 'age',
-                width: 50
+                width: 50,
+                fixed: 'right'
             },
             {
                 title: '地址',
@@ -44,7 +45,8 @@ const columns = [
                                 title: '门牌号',
                                 dataIndex: 'number',
                                 key: 'number',
-                                width: 100
+                                width: 100,
+                                fixed: 'right'
                             }
                         ]
                     }
@@ -76,14 +78,13 @@ const columns = [
         dataIndex: 'gender',
         key: 'gender',
         width: 60,
-        // fixed: 'left'
+        fixed: 'right',
     },
     {
         title: '操作',
         dataIndex: '',
         key: '1',
         width: 160,
-        // fixed: 'left',
         render() {
             return <a href="#">Operations</a>;
         },
@@ -93,6 +94,7 @@ const columns = [
         dataIndex: '',
         key: '2',
         width: 160,
+        fixed: 'right',
         render(text, row, index) {
             return (
                 <input style={{ width: '100%', boxSizing: 'border-box' }} />
@@ -156,6 +158,17 @@ const data = [
         companyAddress: '五一路淡村市场',
         companyName: '了一家科技公司',
         gender: '男'
+    },
+    {
+        id: '6',
+        name: 'taitan',
+        age: '15',
+        street: '竹溪',
+        building: '航洋',
+        number: '',
+        companyAddress: 'C栋3楼',
+        companyName: '',
+        gender: '男'
     }
 ]
 
@@ -164,7 +177,8 @@ const simpleColumns = [
         title: '姓名',
         dataIndex: 'name',
         key: 'name',
-        width: 100
+        width: 100,
+        fixed: 'left'
     },
 
     {
@@ -235,7 +249,7 @@ const simpleColumns = [
 
 function getLargeData() {
     const largeData = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i <50; i++) {
         largeData.push(...data);
     }
 

@@ -55,9 +55,11 @@
     <script type="text/javascript">
         if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
             document.write("<script src='https://as.alipayobjects.com/g/component/??es6-shim/0.35.1/es6-sham.min.js,es6-shim/0.35.1/es6-shim.min.js'/>")
-
         }
     </script>
+
+    <!-- 这行代码必须要,document.write会将这行代码写进去 -->
+    <script type="text/javascript" src="" async></script>
     <script type="text/javascript" src="/cbd/app.js" async></script>
 
 </body>

@@ -48,19 +48,23 @@ $prefixCls:'cbd-table';
                 }
             }
         }
-        
         .#{$prefixCls}-scroll {
             overflow: hidden;
-
             &.fixed {
                 position: absolute;
                 top: 0;
-
-                table{
+                &.left {
+                    box-shadow: 2px 0 6px -2px rgba(0, 0, 0, 0.2)
+                }
+                &.right {
+                    right: 0;
+                    border-left: 1px solid #d7dde4;
+                    box-shadow: -6px 0 6px -4px rgba(0, 0, 0, .15);
+                }
+                table {
                     background: #fff;
                 }
             }
-
             .#{$prefixCls}-head {
                 &.fixed {
                     table {
@@ -79,6 +83,9 @@ $prefixCls:'cbd-table';
             }
         }
         .#{$prefixCls}-body {
+            &.fixed-left {
+                margin-right: -17px;
+            }
             table {
                 border-radius: 0 0 0 0;
                 border-top: 0;
@@ -95,10 +102,8 @@ $prefixCls:'cbd-table';
                 border-bottom: 1px solid #d7dde4;
                 display: block;
             }
-
-            &.fixed{
+            &.fixed {
                 margin-bottom: -17px;
-                
             }
         }
         .#{$prefixCls}-placeholder {
