@@ -11,7 +11,6 @@ class pubStore {
 
     setFixedHeaderRowHeightArry(rowIndex, height) {
         this.fixedHeaderRowHeightArry[rowIndex] = height
-        console.log(height)
     }
 
     getFixedHeaderRowHeightArry() {

@@ -44,6 +44,13 @@ class Table extends React.Component {
     }
 
     componentDidMount() {
+
+        // 在mac的高清屏幕下，滚动条的宽度是不固定的，需要动态计算，win 10 的应用、文本的百分比设置也会影响到这里，笔者的175%显示正常，换成100%后左固定列露出滚动条。
+        if (this['tbodyTable-left']) {
+            const scrollbarWidth = this['tbodyTable-left'].offsetWidth - this['tbodyTable-left'].clientWidth
+            this['tbodyTable-left'].style.marginRight = (0 - scrollbarWidth) + 'px'
+        }
+
         this.handleFixedTableScrollBar();
 
         addEventListener('resize', this.debouncedResize)
@@ -54,12 +61,26 @@ class Table extends React.Component {
     }
 
     handleFixedTableScrollBar() {
+        // 处理窗口大小改变时底部滚动条的显示及高度不差
         if (this['tbodyTable'] && this['tbodyTable'].offsetHeight - this['tbodyTable'].clientHeight > 0) {
             if (this.props.columns.some(column => column.fixed === 'left') && this['tbodyTable-left']) {
                 this['tbodyTable-left'].style['overflowX'] = 'scroll'
+
+                this['tbodyTable-left'].parentElement.style['marginBottom'] = this['tbodyTable'].clientHeight - this['tbodyTable'].offsetHeight + 'px'
             }
             if (this.props.columns.some(column => column.fixed === 'right') && this['tbodyTable-right']) {
                 this['tbodyTable-right'].style['overflowX'] = 'scroll'
+
+                this['tbodyTable-right'].parentElement.style['marginBottom'] = this['tbodyTable'].clientHeight - this['tbodyTable'].offsetHeight + 'px'
+            }
+        } else {
+            if (this.props.columns.some(column => column.fixed === 'left') && this['tbodyTable-left']) {
+                this['tbodyTable-left'].style['overflowX'] = 'hidden'
+                this['tbodyTable-left'].parentElement.style['marginBottom'] = '0px'
+            }
+            if (this.props.columns.some(column => column.fixed === 'right') && this['tbodyTable-right']) {
+                this['tbodyTable-right'].style['overflowX'] = 'hidden'
+                this['tbodyTable-right'].parentElement.style['marginBottom'] = '0px'
             }
         }
     }

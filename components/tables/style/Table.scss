@@ -50,6 +50,7 @@ $prefixCls:'cbd-table';
         }
         .#{$prefixCls}-scroll {
             overflow: hidden;
+            box-sizing: border-box;
             &.fixed {
                 position: absolute;
                 top: 0;
