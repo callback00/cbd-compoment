@@ -20,7 +20,7 @@ class HeadTable extends React.Component {
 
     render() {
 
-        const { prefixCls, bordered, autoMergeCell, scroll = {} } = this.props;
+        const { prefixCls, bordered, autoMergeCell, scroll = {}, onRow, onCell } = this.props;
 
         const fixed = scroll.y ? true : false
 
@@ -33,7 +33,7 @@ class HeadTable extends React.Component {
                 <table>
                     <ColGroup columns={columns} />
                     <TableHeader fixed={fixed} bordered={bordered} prefixCls={prefixCls} columns={headerColumns} />
-                    <TableTbody prefixCls={prefixCls} autoMergeCell={autoMergeCell} scroll={scroll} columns={columns} data={data} />
+                    <TableTbody prefixCls={prefixCls} autoMergeCell={autoMergeCell} scroll={scroll} columns={columns} data={data} onRow={onRow} onCell={onCell} />
                 </table>
             </div>
         )

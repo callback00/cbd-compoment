@@ -1,4 +1,6 @@
 import React from 'react'
+import classNames from 'classnames';
+import { warningOnce } from '../utils/UtilTools'
 
 class TableTbodyRow extends React.Component {
     constructor(props) {
@@ -28,7 +30,7 @@ class TableTbodyRow extends React.Component {
         }
     }
 
-    renderCell(row, rowIndex, columns, fixed) {
+    renderCell(row, rowIndex, columns, fixed, onCell) {
         const cells = [];
 
         let i = 0
@@ -38,17 +40,36 @@ class TableTbodyRow extends React.Component {
             const key = columnItem.dataIndex || columnItem.key
             if (row[key].visible) {
 
-                const temp = typeof row[key].value
+                let tdValue = null;
+                let rowSpan = row[key].rowSpan;
+                let colSpan = 1;
 
-                if (typeof row[key].value !== 'function' && typeof row[key].value !== 'string') {
-                    row[key].value = ''
+                if (columnItem.render) {
+                    const tdObject = columnItem.render(row.orgRecord[key], row.orgRecord, rowIndex);
+                    if (React.isValidElement(tdObject)) {
+                        tdValue = tdObject
+                    } else {
+                        if (typeof tdObject === 'object') {
+                            tdValue = ''
+                        } else {
+                            tdValue = tdObject;
+                        }
+                    }
+
+                } else {
+                    if (typeof row[key].value === 'object') {
+                        tdValue = ''
+                    } else {
+                        tdValue = row[key].value
+                    }
                 }
+
+                const cellCustomAttribute = onCell(key, row.orgRecord, rowIndex)
+
                 const cell = (
-                    <td key={index} rowSpan={row[key].rowSpan} >
+                    <td key={index} rowSpan={rowSpan} colSpan={colSpan} {...cellCustomAttribute} >
                         {
-                            typeof row[key].value === 'function'
-                                ? row[key].value(row.orgRecord[key], row.orgRecord, rowIndex)
-                                : row[key].value
+                            tdValue
                         }
                     </td>
                 );
@@ -69,11 +90,20 @@ class TableTbodyRow extends React.Component {
 
     render() {
 
-        const { rowData, rowIndex, columns, fixed } = this.props
+        const { rowData, rowIndex, columns, fixed, prefixCls, onRow, onCell } = this.props
+
+        const rowCustomAttribute = onRow(rowData.orgRecord, rowIndex)
+
+        // 防止修改ref导致计算行高出错
+        if ('ref' in rowCustomAttribute) {
+            warningOnce(`不支持ref的定义，原代码中已经使用了ref`);
+            delete rowCustomAttribute.ref
+        }
+
         return (
-            <tr ref={element => this.refItem = element} key={`row-${rowIndex}`} >
+            <tr ref={element => this.refItem = element} key={`row-${rowIndex}`} {...rowCustomAttribute} >
                 {
-                    this.renderCell(rowData, rowIndex, columns, fixed)
+                    this.renderCell(rowData, rowIndex, columns, fixed, onCell)
                 }
             </tr>
         )

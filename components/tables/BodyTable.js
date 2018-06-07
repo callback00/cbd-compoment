@@ -12,13 +12,10 @@ class BodyTable extends React.Component {
         super(props);
         this.state = {
         };
-
-        // this.dataManager = new DataManager(this.props.data);
-        // this.columnManager = new ColumnManager(this.props.columns);
     }
 
     render() {
-        const { prefixCls, bordered, autoMergeCell, scroll, fixed, pubStore } = this.props;
+        const { prefixCls, autoMergeCell, scroll, fixed, pubStore, onRow, onCell } = this.props;
 
         let columns = this.props.columnManager.getLeafColumns();
 
@@ -59,7 +56,7 @@ class BodyTable extends React.Component {
                 >
                     <table style={{ width }} >
                         <ColGroup columns={columns} />
-                        <TableTbody prefixCls={prefixCls} columns={columns} data={data} fixed={fixed} pubStore={pubStore} />
+                        <TableTbody prefixCls={prefixCls} columns={columns} data={data} fixed={fixed} pubStore={pubStore} onRow={onRow} onCell={onCell} />
                     </table>
 
                 </div>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 
+import ExpandableTable from './ExpandableTable'
 import HeadTable from './HeadTable'
 import BodyTable from './BodyTable'
 import SimpleTable from './SimpleTable'
@@ -86,8 +87,7 @@ class Table extends React.Component {
     }
 
     handleWindowResize() {
-        this.setState({
-        })
+        this.forceUpdate()
     }
 
     // 表头同步body的横向滚动条
@@ -187,7 +187,7 @@ class Table extends React.Component {
 
     renderTable(options) {
         const { fixed } = options
-        const { prefixCls, bordered, columns, data, autoMergeCell, scroll = {} } = this.props;
+        const { prefixCls, bordered, columns, data, onRow, onCell, autoMergeCell, scroll = {} } = this.props;
 
         const isAnyColumnsFixed = columns.some(column => !!column.fixed);
         const scrollable = isAnyColumnsFixed || scroll.x || scroll.y;
@@ -213,7 +213,6 @@ class Table extends React.Component {
                     key="body"
                     saveRef={this.saveRef}
                     prefixCls={prefixCls}
-                    bordered={bordered}
                     dataManager={this.dataManager}
                     columnManager={this.columnManager}
                     autoMergeCell={autoMergeCell}
@@ -221,6 +220,8 @@ class Table extends React.Component {
                     fixed={fixed}
                     pubStore={this.pubStore}
                     handleBodyScroll={this.handleBodyScroll}
+                    onRow={onRow}
+                    onCell={onCell}
                 />
             );
 
@@ -251,6 +252,8 @@ class Table extends React.Component {
                     autoMergeCell={autoMergeCell}
                     dataManager={this.dataManager}
                     columnManager={this.columnManager}
+                    onRow={onRow}
+                    onCell={onCell}
                 />
             )
         }
@@ -313,6 +316,19 @@ class Table extends React.Component {
                 {this.renderFooter()}
             </div>
         );
+
+        // return (
+        //     <ExpandableTable >
+        //         {
+        //             (item) => {
+        //                 console.log(this.lastScrollTop = 0)
+        //                 return (
+        //                     <div>111</div>
+        //                 )
+        //             }
+        //         }
+        //     </ExpandableTable>
+        // )
     }
 }
 
@@ -324,40 +340,15 @@ Table.propTypes = {
     data: PropTypes.array,
     bordered: PropTypes.bool,
     autoMergeCell: PropTypes.bool, // 数据是否自动合并，在不分页，不固定列时可用
+    locale: PropTypes.object, // 用于处理空文本，语言显示等。目前用于空文本显示
+    expandedRowRender: PropTypes.func,
 
-    locale: PropTypes.object,
-
-    useFixedHeader: PropTypes.bool, // 这个没什么用，应该根据scroll.y来判断是否固定表头
-
-    bodyStyle: PropTypes.object,
     style: PropTypes.object,
-
-    rowKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    rowClassName: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    onRow: PropTypes.func,
-    onHeaderRow: PropTypes.func, //设置头部行属性
-    showHeader: PropTypes.bool,
+    onRow: PropTypes.func, // onRow和onCell是两个及其开放的接口，只要返回的是tr、td可识别的属性，就可以达到客户自定义行列规则的效果。
+    onCell: PropTypes.func,
     title: PropTypes.func,
-    id: PropTypes.string,
     footer: PropTypes.func,
-    emptyText: PropTypes.oneOfType([PropTypes.node, PropTypes.func]), // 当table无数据时显示的文案
     scroll: PropTypes.object,
-    rowRef: PropTypes.func,
-    getBodyWrapper: PropTypes.func,
-    children: PropTypes.node, // 要求属性是可渲染节点
-    components: PropTypes.shape({
-        table: PropTypes.any,
-        header: PropTypes.shape({
-            wrapper: PropTypes.any,
-            row: PropTypes.any,
-            cell: PropTypes.any,
-        }),
-        body: PropTypes.shape({
-            wrapper: PropTypes.any,
-            row: PropTypes.any,
-            cell: PropTypes.any,
-        }),
-    }),
 }
 
 Table.defaultProps = {
@@ -366,18 +357,12 @@ Table.defaultProps = {
     bordered: true,
     autoMergeCell: false,
     locale: { emptyText: '没有相关数据' },
-    useFixedHeader: false,
-    rowKey: 'key',
-    rowClassName: () => '',
-    onRow() { },
-    onHeaderRow() { },
+    onRow: () => { },
+    onCell: () => { },
     prefixCls: 'cbd-table',
-    bodyStyle: {},
     style: {},
-    showHeader: true,
     scroll: {},
-    rowRef: () => null,
-    emptyText: () => 'No Data',
+
 }
 
 export default Table

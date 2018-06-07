@@ -21,6 +21,10 @@ class Index extends React.Component {
         });
     }
 
+    onRowClick(record, index) {
+        console.log(this.state.changeFlag)
+    }
+
     render() {
         return (
             <div>
@@ -30,13 +34,27 @@ class Index extends React.Component {
                     <Table
                         columns={TestDataModel.columns}
                         data={TestDataModel.getLargeData()}
-                        autoMergeCell={true}
+                        autoMergeCell={false}
                         scroll={{ x: '110%', y: 400 }}
+                        bordered={false}
+                        expandedRowRender={(text, record, rowIndex) => { return (<div>test</div>) }}
+                        onRow={(record, index) => {
+                            return ({
+                                onClick: this.onRowClick.bind(this, record, index),
+                                className: 'indexClass',
+                                ref:''
+                            })
+                        }}
+                        onCell={(key, record, index) => {
+                            return ({
+                                className: 'testCell'
+                            })
+                        }}
                     />
                 </div>
 
                 {/* 测试大量数据时的渲染速度 */}
-                <div style={{ padding: '0 20px', marginBottom: '15px' }} >
+                {/* <div style={{ padding: '0 20px', marginBottom: '15px' }} >
                     <Table
                         columns={TestDataModel.columns}
                         data={this.state.changeFlag ? TestDataModel.getLargeData() : TestDataModel.data}
@@ -44,7 +62,7 @@ class Index extends React.Component {
                         bordered={false}
                         scroll={{ x: 1800, y: 400 }}
                     />
-                </div>
+                </div> */}
 
                 {/* <div style={{ padding: '0 20px', marginBottom: '15px' }} >
                     <Table

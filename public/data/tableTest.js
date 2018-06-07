@@ -11,7 +11,12 @@ const columns = [
         dataIndex: 'name',
         key: 'name',
         width: 100,
-        fixed: 'left'
+        fixed: 'left',
+        render: (text, record, index) => {
+            return (
+                <div>{text}</div>
+            )
+        }
     },
     {
         title: '其他信息',
@@ -95,7 +100,7 @@ const columns = [
         key: '2',
         width: 160,
         fixed: 'right',
-        render(text, row, index) {
+        render(text, record, index) {
             return (
                 <input style={{ width: '100%', boxSizing: 'border-box' }} />
             );
@@ -249,7 +254,7 @@ const simpleColumns = [
 
 function getLargeData() {
     const largeData = []
-    for (let i = 0; i <100; i++) {
+    for (let i = 0; i < 100; i++) {
         largeData.push(...data);
     }
 

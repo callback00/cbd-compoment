@@ -48,6 +48,12 @@ $prefixCls:'cbd-table';
                 }
             }
         }
+        table tbody tr {
+            transition: background-color .2s ease-in-out;
+            &:hover {
+                background-color: #ebf7ff
+            }
+        }
         .#{$prefixCls}-scroll {
             overflow: hidden;
             box-sizing: border-box;
