@@ -95,7 +95,7 @@ class TableTbodyRow extends React.Component {
         const rowCustomAttribute = onRow(rowData.orgRecord, rowIndex)
 
         // 防止修改ref导致计算行高出错
-        if ('ref' in rowCustomAttribute) {
+        if (rowCustomAttribute && 'ref' in rowCustomAttribute) {
             warningOnce(`不支持ref的定义，原代码中已经使用了ref`);
             delete rowCustomAttribute.ref
         }
