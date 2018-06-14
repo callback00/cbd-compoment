@@ -2,6 +2,8 @@ import React from 'react'
 
 import Simple from './simple-desc'
 import AutoMerge from './autoMerge-desc'
+import ScrollX from './scrollX-desc'
+import ScrollY from './scrollY-desc'
 
 import Table from '../../components/tables/Index'
 
@@ -18,6 +20,8 @@ class Index extends React.Component {
             <div>
                 <Simple />
                 <AutoMerge />
+                <ScrollX />
+                <ScrollY />
             </div>
         )
     };

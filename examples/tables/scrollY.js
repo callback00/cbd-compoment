@@ -4,7 +4,7 @@ import Table from '../../components/tables/Index'
 
 const Column = Table.Column
 
-class autoMerge extends React.Component {
+class scrollY extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -54,15 +54,104 @@ class autoMerge extends React.Component {
                 key: 'companyName'
             },
             {
-                title: '性别',
+                title: (
+                    <a href='#' >
+                        性别
+                    </a>
+                ),
                 dataIndex: 'gender',
                 key: 'gender',
                 width: 60
+            },
+            {
+                title: '操作',
+                dataIndex: '',
+                key: '1',
+                width: 160,
+                render() {
+                    return <a href="#">Operations</a>;
+                },
+            },
+            {
+                title: '自定义渲染',
+                dataIndex: '',
+                key: '2',
+                width: 160,
+                render(text, row, index) {
+                    return (
+                        <input style={{ width: '100%', boxSizing: 'border-box' }} />
+                    );
+                },
             }
         ]
 
         const data = [
             {
+                id: '1',
+                name: 'daily',
+                age: '28',
+                street: '五一路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '2',
+                name: 'daily',
+                age: '28',
+                street: '五二路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '3',
+                name: 'daily',
+                age: '28',
+                street: '五三路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '女'
+            },
+            {
+                id: '4',
+                name: 'lufi',
+                age: '28',
+                street: '五一路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '5',
+                name: 'lufi',
+                age: '28',
+                street: '五二路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '6',
+                name: 'taitan',
+                age: '15',
+                street: '竹溪',
+                building: '航洋',
+                number: '',
+                companyAddress: 'C栋3楼',
+                companyName: '',
+                gender: '男'
+            }, {
                 id: '1',
                 name: 'daily',
                 age: '28',
@@ -136,7 +225,7 @@ class autoMerge extends React.Component {
                     <Table
                         columns={columns}
                         data={data}
-                        autoMergeCell={true}
+                        scroll={{ y: 200 }}
                     />
                 </div>
             </div>
@@ -144,4 +233,4 @@ class autoMerge extends React.Component {
     };
 };
 
-export default autoMerge
+export default scrollY

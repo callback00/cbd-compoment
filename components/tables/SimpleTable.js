@@ -13,26 +13,21 @@ class HeadTable extends React.Component {
         super(props);
         this.state = {
         };
-
-        this.dataManager = new DataManager(this.props.data);
-        this.columnManager = new ColumnManager(this.props.columns);
     }
 
     render() {
 
         const { prefixCls, bordered, autoMergeCell, scroll = {}, onRow, onCell } = this.props;
 
-        const fixed = scroll.y ? true : false
-
-        const headerColumns = this.columnManager.groupedColumns();
-        const columns = this.columnManager.getLeafColumns()
-        const data = this.dataManager.groupedData(columns, autoMergeCell)
+        const headerColumns = this.props.columnManager.groupedColumns();
+        const columns = this.props.columnManager.getLeafColumns()
+        const data = this.props.dataManager.groupedData(columns, autoMergeCell)
 
         return (
             <div className={`${prefixCls}-simple`}>
                 <table>
                     <ColGroup columns={columns} />
-                    <TableHeader fixed={fixed} bordered={bordered} prefixCls={prefixCls} columns={headerColumns} />
+                    <TableHeader bordered={bordered} prefixCls={prefixCls} columns={headerColumns} />
                     <TableTbody prefixCls={prefixCls} autoMergeCell={autoMergeCell} scroll={scroll} columns={columns} data={data} onRow={onRow} onCell={onCell} />
                 </table>
             </div>
