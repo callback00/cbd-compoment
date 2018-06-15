@@ -4,7 +4,7 @@ import Table from '../../components/tables/Index'
 
 const Column = Table.Column
 
-class autoMerge extends React.Component {
+class AutoMerge extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -144,4 +144,4 @@ class autoMerge extends React.Component {
     };
 };
 
-export default autoMerge
+export default AutoMerge

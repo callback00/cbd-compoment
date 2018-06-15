@@ -4,7 +4,7 @@ import Example from './simple'
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 
 
-class simple_desc extends React.Component {
+class Simple_desc extends React.Component {
     constructor(props) {
         super(props)
 
@@ -13,10 +13,11 @@ class simple_desc extends React.Component {
     render() {
         return (
             <div>
+
+                <p style={{ paddingBottom: '10px', fontSize: '20px' }} >简单表格使用</p>
                 <Example />
 
                 <div>
-                    简单的表格使用
                     <SyntaxHighlighter language='jsx'>
                         {
                             `
@@ -120,4 +121,4 @@ export default Index
     };
 };
 
-export default simple_desc
+export default Simple_desc

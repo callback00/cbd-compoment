@@ -4,7 +4,7 @@ import Example from './scrollY'
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 
 
-class scrollY_desc extends React.Component {
+class ScrollY_desc extends React.Component {
     constructor(props) {
         super(props)
 
@@ -13,8 +13,7 @@ class scrollY_desc extends React.Component {
     render() {
         return (
             <div>
-                <p style={{ paddingBottom: '10px', fontSize: '20px' }} >水平滚动条表格</p>
-                <p style={{ paddingBottom: '10px', fontSize: '14px' }} >x值大于可视区域时才会出现滚动条</p>
+                <p style={{ paddingBottom: '10px', fontSize: '20px' }} >Y轴滚动条表格</p>
                 <Example />
                 <SyntaxHighlighter language='jsx'>
                     {
@@ -75,35 +74,14 @@ class scrollY extends React.Component {
                 key: 'companyName'
             },
             {
-                title: (
-                    <a href='#' >
-                        性别
-                    </a>
-                ),
+                title: '性别',
                 dataIndex: 'gender',
                 key: 'gender',
                 width: 60
-            },
-            {
-                title: '操作',
-                dataIndex: '',
-                key: '1',
-                width: 160,
-                render() {
-                    return <a href="#">Operations</a>;
-                },
-            },
-            {
-                title: '自定义渲染',
-                dataIndex: '',
-                key: '2',
-                width: 160,
-                render(text, row, index) {
-                    return (
-                        <input style={{ width: '100%', boxSizing: 'border-box' }} />
-                    );
-                },
-            },
+            }
+        ]
+
+        const data = [
             {
                 id: '1',
                 name: 'daily',
@@ -169,11 +147,7 @@ class scrollY extends React.Component {
                 companyAddress: 'C栋3楼',
                 companyName: '',
                 gender: '男'
-            }
-        ]
-
-        const data = [
-            {
+            }, {
                 id: '1',
                 name: 'daily',
                 age: '28',
@@ -264,4 +238,4 @@ export default scrollY
     }
 }
 
-export default scrollY_desc
+export default ScrollY_desc

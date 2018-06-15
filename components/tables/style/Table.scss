@@ -90,9 +90,6 @@ $prefixCls:'cbd-table';
             }
         }
         .#{$prefixCls}-body {
-            &.fixed-left {
-                margin-right: -17px;
-            }
             table {
                 border-radius: 0 0 0 0;
                 border-top: 0;

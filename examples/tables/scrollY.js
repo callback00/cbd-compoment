@@ -4,7 +4,7 @@ import Table from '../../components/tables/Index'
 
 const Column = Table.Column
 
-class scrollY extends React.Component {
+class ScrollY extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -54,34 +54,10 @@ class scrollY extends React.Component {
                 key: 'companyName'
             },
             {
-                title: (
-                    <a href='#' >
-                        性别
-                    </a>
-                ),
+                title: '性别',
                 dataIndex: 'gender',
                 key: 'gender',
                 width: 60
-            },
-            {
-                title: '操作',
-                dataIndex: '',
-                key: '1',
-                width: 160,
-                render() {
-                    return <a href="#">Operations</a>;
-                },
-            },
-            {
-                title: '自定义渲染',
-                dataIndex: '',
-                key: '2',
-                width: 160,
-                render(text, row, index) {
-                    return (
-                        <input style={{ width: '100%', boxSizing: 'border-box' }} />
-                    );
-                },
             }
         ]
 
@@ -233,4 +209,4 @@ class scrollY extends React.Component {
     };
 };
 
-export default scrollY
+export default ScrollY

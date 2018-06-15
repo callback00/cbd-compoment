@@ -1,5 +1,6 @@
 import React from 'react';
 
+// 该功能还未实现
 class ExpandableTable extends React.Component {
     constructor(props) {
         super(props)

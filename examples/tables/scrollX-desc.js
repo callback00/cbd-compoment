@@ -4,7 +4,7 @@ import Example from './scrollX'
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 
 
-class scrollX_desc extends React.Component {
+class ScrollX_desc extends React.Component {
     constructor(props) {
         super(props)
 
@@ -75,34 +75,10 @@ class scrollX extends React.Component {
                 key: 'companyName'
             },
             {
-                title: (
-                    <a href='#' >
-                        性别
-                    </a>
-                ),
+                title: '性别',
                 dataIndex: 'gender',
                 key: 'gender',
                 width: 60
-            },
-            {
-                title: '操作',
-                dataIndex: '',
-                key: '1',
-                width: 160,
-                render() {
-                    return <a href="#">Operations</a>;
-                },
-            },
-            {
-                title: '自定义渲染',
-                dataIndex: '',
-                key: '2',
-                width: 160,
-                render(text, row, index) {
-                    return (
-                        <input style={{ width: '100%', boxSizing: 'border-box' }} />
-                    );
-                },
             }
         ]
 
@@ -198,4 +174,4 @@ export default scrollX
     }
 }
 
-export default scrollX_desc
+export default ScrollX_desc

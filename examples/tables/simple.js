@@ -6,7 +6,7 @@ import TestDataModel from '../../public/data/tableTest'
 
 const Column = Table.Column
 
-class Index extends React.Component {
+class Simple extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,78 +14,138 @@ class Index extends React.Component {
         }
     }
 
-    changeData() {
-        const changeFlag = !this.state.changeFlag;
-        this.setState({
-            changeFlag
-        });
-    }
-
-    onRowClick(record, index) {
-        console.log(this.state.changeFlag)
-    }
-
     render() {
+
+        const columns = [
+            {
+                title: '姓名',
+                dataIndex: 'name',
+                key: 'name',
+                width: 100
+            },
+
+            {
+                title: '年龄',
+                dataIndex: 'age',
+                key: 'age',
+                width: 50
+            },
+            {
+                title: '街道',
+                dataIndex: 'street',
+                key: 'street',
+                width: 200
+            },
+            {
+                title: '建筑',
+                dataIndex: 'building',
+                key: 'building',
+                width: 100
+            },
+            {
+                title: '门牌号',
+                dataIndex: 'number',
+                key: 'number',
+                width: 100
+            },
+            {
+                title: '公司地址',
+                dataIndex: 'companyAddress',
+                key: 'companyAddress'
+            },
+            {
+                title: '公司名称',
+                dataIndex: 'companyName',
+                key: 'companyName'
+            },
+            {
+                title: '性别',
+                dataIndex: 'gender',
+                key: 'gender',
+                width: 60
+            }
+        ]
+
+        const data = [
+            {
+                id: '1',
+                name: 'daily',
+                age: '28',
+                street: '五一路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '2',
+                name: 'daily',
+                age: '28',
+                street: '五二路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '3',
+                name: 'daily',
+                age: '28',
+                street: '五三路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '女'
+            },
+            {
+                id: '4',
+                name: 'lufi',
+                age: '28',
+                street: '五一路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '5',
+                name: 'lufi',
+                age: '28',
+                street: '五二路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '6',
+                name: 'taitan',
+                age: '15',
+                street: '竹溪',
+                building: '航洋',
+                number: '',
+                companyAddress: 'C栋3楼',
+                companyName: '',
+                gender: '男'
+            }
+        ]
+
         return (
             <div>
-                <button onClick={this.changeData.bind(this)} >改变数据</button>
-
                 <div style={{ padding: '0 20px', marginBottom: '15px' }} >
                     <Table
-                        columns={TestDataModel.columns}
-                        data={TestDataModel.getLargeData()}
-                        autoMergeCell={false}
-                        scroll={{ x: '110%', y: 400 }}
-                        bordered={false}
-                        expandedRowRender={(text, record, rowIndex) => { return (<div>test</div>) }}
-                        onRow={(record, index) => {
-                            return ({
-                                onClick: this.onRowClick.bind(this, record, index),
-                                className: 'indexClass',
-                                ref: ''
-                            })
-                        }}
-                        onCell={(key, record, index) => {
-                            return ({
-                                className: 'testCell'
-                            })
-                        }}
+                        columns={columns}
+                        data={data}
                     />
                 </div>
-
-                {/* 测试大量数据时的渲染速度 */}
-                {/* <div style={{ padding: '0 20px', marginBottom: '15px' }} >
-                    <Table
-                        columns={TestDataModel.columns}
-                        data={this.state.changeFlag ? TestDataModel.getLargeData() : TestDataModel.data}
-                        // autoMergeCell={true}
-                        bordered={false}
-                        scroll={{ x: 1800, y: 400 }}
-                    />
-                </div> */}
-
-                {/* <div style={{ padding: '0 20px', marginBottom: '15px' }} >
-                    <Table
-                        columns={TestDataModel.columns}
-                        data={TestDataModel.data}
-                        autoMergeCell={true}
-                        bordered={false}
-                    />
-                </div> */}
-
-                {/* <div style={{ padding: '0 20px', marginBottom: '15px', width: '800px' }} >
-                    <Table
-                        columns={TestDataModel.columns}
-                        data={TestDataModel.data}
-                        autoMergeCell={true}
-                        scroll={{ y: 500, x: 1200 }}
-                        locale={{ emptyText: '暂无数据' }}
-                        bordered={true}
-                    />
-                </div> */}
             </div>
         )
     };
 };
 
-export default Index
+export default Simple

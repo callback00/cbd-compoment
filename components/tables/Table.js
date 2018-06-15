@@ -48,7 +48,12 @@ class Table extends React.Component {
 
         // 在mac的高清屏幕下，滚动条的宽度是不固定的，需要动态计算，win 10 的应用、文本的百分比设置也会影响到这里，笔者的175%显示正常，换成100%后左固定列露出滚动条。
         if (this['tbodyTable-left']) {
-            const scrollbarWidth = this['tbodyTable-left'].offsetWidth - this['tbodyTable-left'].clientWidth
+            let scrollbarWidth = this['tbodyTable-left'].offsetWidth - this['tbodyTable-left'].clientWidth
+
+            // 修正滚动条计算时小于17的值，小于17时会造成div没有精确重叠，导致设置阴影效果时会出现间隙
+            if (scrollbarWidth < 17) {
+                scrollbarWidth = 17
+            }
             this['tbodyTable-left'].style.marginRight = (0 - scrollbarWidth) + 'px'
         }
 

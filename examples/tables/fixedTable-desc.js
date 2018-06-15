@@ -1,10 +1,10 @@
 import React from 'react'
-import Example from './autoMerge'
+import Example from './fixedTable'
 
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 
 
-class AutoMerge_desc extends React.Component {
+class FixedTable_desc extends React.Component {
     constructor(props) {
         super(props)
 
@@ -13,7 +13,7 @@ class AutoMerge_desc extends React.Component {
     render() {
         return (
             <div>
-                <p style={{ paddingBottom: '10px', fontSize: '20px' }} >自动合并列</p>
+                <p style={{ paddingBottom: '10px', fontSize: '20px' }} >固定列使用</p>
                 <Example />
                 <SyntaxHighlighter language='jsx'>
                     {
@@ -24,7 +24,7 @@ import Table from '../../components/tables/Index'
 
 const Column = Table.Column
 
-class autoMerge extends React.Component {
+class FixedTable extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -36,7 +36,8 @@ class autoMerge extends React.Component {
                 title: '姓名',
                 dataIndex: 'name',
                 key: 'name',
-                width: 100
+                width: 100,
+                fixed: 'left',
             },
 
             {
@@ -77,7 +78,8 @@ class autoMerge extends React.Component {
                 title: '性别',
                 dataIndex: 'gender',
                 key: 'gender',
-                width: 60
+                width: 60,
+                fixed: 'right',
             }
         ]
 
@@ -156,7 +158,7 @@ class autoMerge extends React.Component {
                     <Table
                         columns={columns}
                         data={data}
-                        autoMergeCell={true}
+                        scroll={{ x: '120%' }}
                     />
                 </div>
             </div>
@@ -164,7 +166,7 @@ class autoMerge extends React.Component {
     };
 };
 
-export default autoMerge
+export default FixedTable
 `
                     }
                 </SyntaxHighlighter>
@@ -173,4 +175,4 @@ export default autoMerge
     }
 }
 
-export default AutoMerge_desc
+export default FixedTable_desc

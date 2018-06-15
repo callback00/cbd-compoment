@@ -1,10 +1,10 @@
 import React from 'react'
-import Example from './autoMerge'
+import Example from './scrollXY'
 
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 
 
-class AutoMerge_desc extends React.Component {
+class ScrollXY_desc extends React.Component {
     constructor(props) {
         super(props)
 
@@ -13,7 +13,8 @@ class AutoMerge_desc extends React.Component {
     render() {
         return (
             <div>
-                <p style={{ paddingBottom: '10px', fontSize: '20px' }} >自动合并列</p>
+                <p style={{ paddingBottom: '10px', fontSize: '20px' }} >水平垂直滚动条表格</p>
+                <p style={{ paddingBottom: '10px', fontSize: '14px' }} >x值大于可视区域时才会出现滚动条</p>
                 <Example />
                 <SyntaxHighlighter language='jsx'>
                     {
@@ -24,7 +25,7 @@ import Table from '../../components/tables/Index'
 
 const Column = Table.Column
 
-class autoMerge extends React.Component {
+class scrollXY extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -147,6 +148,71 @@ class autoMerge extends React.Component {
                 companyAddress: 'C栋3楼',
                 companyName: '',
                 gender: '男'
+            }, {
+                id: '1',
+                name: 'daily',
+                age: '28',
+                street: '五一路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '2',
+                name: 'daily',
+                age: '28',
+                street: '五二路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '3',
+                name: 'daily',
+                age: '28',
+                street: '五三路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '女'
+            },
+            {
+                id: '4',
+                name: 'lufi',
+                age: '28',
+                street: '五一路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '5',
+                name: 'lufi',
+                age: '28',
+                street: '五二路',
+                building: '维也纳酒店',
+                number: '101',
+                companyAddress: '五一路淡村市场',
+                companyName: '了一家科技公司',
+                gender: '男'
+            },
+            {
+                id: '6',
+                name: 'taitan',
+                age: '15',
+                street: '竹溪',
+                building: '航洋',
+                number: '',
+                companyAddress: 'C栋3楼',
+                companyName: '',
+                gender: '男'
             }
         ]
 
@@ -156,7 +222,7 @@ class autoMerge extends React.Component {
                     <Table
                         columns={columns}
                         data={data}
-                        autoMergeCell={true}
+                        scroll={{ x: '200%', y: 200 }}
                     />
                 </div>
             </div>
@@ -164,7 +230,7 @@ class autoMerge extends React.Component {
     };
 };
 
-export default autoMerge
+export default scrollXY
 `
                     }
                 </SyntaxHighlighter>
@@ -173,4 +239,4 @@ export default autoMerge
     }
 }
 
-export default AutoMerge_desc
+export default ScrollXY_desc
