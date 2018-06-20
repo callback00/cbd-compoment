@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
-// import FormComponents from '../components/webForm/FormComponents'
-
 import tablesExample from '../examples/tables/index'
+import mDialog from '../examples/m-dialog/index'
 
 class CustRoutes extends Component {
     constructor(props) {
@@ -20,6 +19,7 @@ class CustRoutes extends Component {
             <div>
                 <Switch>
                     <Route path="/tablesExample" component={tablesExample} routeComponent={this} />
+                    <Route path="/mDialog" component={mDialog} routeComponent={this} />
                 </Switch>
             </div>
         )

@@ -3,7 +3,13 @@
 $border-color: #1890ff;
 $input-height:32px;
 $input-font-size:16px;
-
+body {
+    margin: 0;
+}
 
 /*----------------------------table---------------------------------*/
+
 @import '../components/tables/style/Table.scss';
+/*----------------------------m-dialog---------------------------------*/
+
+@import '../components/m-dialog/style/Dialog.scss';

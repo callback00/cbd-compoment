@@ -15,7 +15,6 @@ const Column = Table.Column
 class Index extends React.Component {
     constructor(props) {
         super(props)
-
     }
 
     render() {
@@ -29,7 +28,7 @@ class Index extends React.Component {
                 <FixedTable />
                 <CustomTable />
             </div>
-        )
+        );
     };
 };
 
