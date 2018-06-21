@@ -9,6 +9,14 @@ $prefixCls:'cbd-mobile-dialog';
     height: 100%;
     background-color: rgba(0, 0, 0, .65);
     z-index: 1000;
+    &.zoom-in {
+        animation: maskZoomIn 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+        animation-fill-mode: forwards;
+    }
+    &.zoom-out {
+        animation: maskZoomOut 0.2s cubic-bezier(0.55, 0, 0.55, 0.2) 0.1s;
+        animation-fill-mode: forwards;
+    }
     &.hidden {
         display: none;
     }
@@ -26,6 +34,14 @@ $prefixCls:'cbd-mobile-dialog';
         position: relative;
         background: #fff;
         border-radius: 2px 2px 0 0;
+        &.zoom-in {
+            animation: dialogZoomIn 0.3s cubic-bezier(0.08, 0.82, 0.17, 1);
+            animation-fill-mode: forwards;
+        }
+        &.zoom-out {
+            animation: dialogZoomOut 0.3s cubic-bezier(0.6, 0.04, 0.98, 0.34);
+            animation-fill-mode: forwards;
+        }
         .close-icon {
             position: absolute;
             width: 30px;
@@ -50,5 +66,44 @@ $prefixCls:'cbd-mobile-dialog';
                 }
             }
         }
+    }
+}
+
+@keyframes dialogZoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes dialogZoomOut {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+@keyframes maskZoomIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes maskZoomOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
     }
 }

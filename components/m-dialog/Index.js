@@ -1,3 +1,3 @@
-import Dialog from './Dialog'
+import Modal from './Modal'
 
-export default Dialog
+export default Modal
