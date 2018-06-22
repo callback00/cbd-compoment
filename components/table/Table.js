@@ -364,7 +364,7 @@ Table.defaultProps = {
     locale: { emptyText: '没有相关数据' },
     onRow: () => { },
     onCell: () => { },
-    prefixCls: 'cbd-table',
+    prefixCls: 'lyj-table',
     style: {},
     scroll: {},
 

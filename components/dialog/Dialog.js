@@ -57,14 +57,14 @@ class Dialog extends React.Component {
         });
 
         const mask_cls = classNames({
-            ['cbd-mobile-dialog-mask']: true,
+            ['lyj-mobile-dialog-mask']: true,
             ['hidden']: !this.props.mask,
             ['zoom-in']: this.state.visible,
             ['zoom-out']: !this.state.visible,
         });
 
         const dialog_cls = classNames({
-            ['cbd-mobile-dialog']: true,
+            ['lyj-mobile-dialog']: true,
             ['zoom-in']: this.state.visible,
             ['zoom-out']: !this.state.visible,
         });
@@ -72,7 +72,7 @@ class Dialog extends React.Component {
         const mask = <div key='mask' className={mask_cls} />;
 
         const wrap = (
-            <div key='wrap' className="cbd-mobile-dialog-wrap" onClick={this.props.maskClosable ? this.handleClosed.bind(this) : null}>
+            <div key='wrap' className="lyj-mobile-dialog-wrap" onClick={this.props.maskClosable ? this.handleClosed.bind(this) : null}>
                 <div ref={element => this.dialog = element} style={this.props.style} className={dialog_cls} onClick={(e) => e.stopPropagation()} >
                     <div className={icon_cls} onClick={this.handleClosed.bind(this)} >
                         <span className="lines line-1" />
@@ -115,7 +115,7 @@ Dialog.propTypes = {
 }
 
 Dialog.defaultProps = {
-    prefixCls: 'cbd-mobile-dialog',
+    prefixCls: 'lyj-mobile-dialog',
     style: {},
     mask: true,
     showCloseIcon: true,

@@ -19,11 +19,11 @@ module.exports = {
     filename: '[name].js',
 
     // build时输出目录，不发布代码可以注释掉
-    path: path.resolve(__dirname, 'build/cbd'),
+    path: path.resolve(__dirname, 'build/lyj'),
 
     // 开发模式(文档译为观察模式)下输出的文件路径
     // server.html里的js路径需与这里保持一致
-    publicPath: '/cbd',
+    publicPath: '/lyj',
   },
 
   plugins: [

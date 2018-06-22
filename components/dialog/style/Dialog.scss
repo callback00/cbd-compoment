@@ -2,7 +2,7 @@
     @return $number/37.5 * 1rem;
 }
 
-$prefixCls:'cbd-mobile-dialog';
+$prefixCls:'lyj-mobile-dialog';
 .#{$prefixCls}-mask {
     position: fixed;
     width: 100%;
@@ -30,7 +30,7 @@ $prefixCls:'cbd-mobile-dialog';
     width: 100%;
     height: 100%;
     z-index: 1001;
-    .cbd-mobile-dialog {
+    .lyj-mobile-dialog {
         position: relative;
         background: #fff;
         border-radius: 2px 2px 0 0;
