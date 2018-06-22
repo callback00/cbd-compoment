@@ -1,5 +1,6 @@
 import React from 'react'
-import Dialog from '../../components/m-dialog/Index'
+
+import { Dialog } from '../../components/components'
 
 class Index extends React.Component {
     constructor(props) {

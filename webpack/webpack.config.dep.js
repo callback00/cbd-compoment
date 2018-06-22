@@ -13,13 +13,13 @@ module.exports = [
         },
 
         entry: {
-            app: ['../App.js']
+            app: ['./App.js'],
         },
 
         output: {
-            path: path.resolve(__dirname, '../../dist/mobile/bundle'),
-            filename: '[name].bundle.js',
-            publicPath: '../../dist',
+            path: path.resolve(__dirname, '../dist/mobile/bundle'),
+            filename: '[name].js',
+            publicPath: '../dist',
         },
 
         // target: "node",
@@ -67,10 +67,6 @@ module.exports = [
 
         resolve: {
             extensions: ['.js', '.jsx']
-        },
-
-        externals: {
-            swiper: 'Swiper' // 这个轮播库要这样掉才行，不然iphone5会空白
         },
 
         plugins: [

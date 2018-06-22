@@ -1,7 +1,6 @@
 {
-    "presets": ["react", "env"],
+    "presets": ["react", "env", "es2015"],
     "plugins": [
-      ["import", { libraryName: "antd", style: "css" }],
       ["transform-object-rest-spread"],
       ["transform-decorators-legacy"]
     ]

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
 import tablesExample from '../examples/tables/index'
-import mDialog from '../examples/m-dialog/index'
+import mDialog from '../examples/dialog/index'
 
 class CustRoutes extends Component {
     constructor(props) {

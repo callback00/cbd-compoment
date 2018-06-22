@@ -8,7 +8,7 @@ import ScrollXY from './scrollXY-desc'
 import FixedTable from './fixedTable-desc'
 import CustomTable from './customTable-desc'
 
-import Table from '../../components/tables/Index'
+import { Table } from '../../components/components'
 
 const Column = Table.Column
 

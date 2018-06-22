@@ -1,21 +1,27 @@
 {
-  "name": "reactpro",
-  "version": "1.0.0",
+  "name": "cbd-component",
+  "version": "1.0.7",
+  "main": "./lib/components.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "start": "node babel.server.js",
     "build": "set NODE_ENV=production && webpack-cli --progress --config ./webpack/webpack.config.dep.js"
   },
-  "author": "",
+  "author": "callback00",
   "license": "ISC",
   "devDependencies": {
     "async-validator": "^1.8.2",
     "autoprefixer": "^8.0.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.3",
     "babel-plugin-import": "^1.6.5",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "classnames": "^2.2.5",
@@ -29,7 +35,7 @@
     "postcss-loader": "^2.1.1",
     "precss": "^3.1.2",
     "prop-types": "^15.6.1",
-    "react": "^16.2.0",
+    "react": "^16.4.1",
     "react-dom": "^16.2.0",
     "react-router-dom": "4.2.2",
     "react-syntax-highlighter": "^7.0.4",

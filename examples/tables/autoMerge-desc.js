@@ -20,7 +20,7 @@ class AutoMerge_desc extends React.Component {
                         `
 import React from 'react'
 
-import Table from '../../components/tables/Index'
+import { Table } from '../../components/components'
 
 const Column = Table.Column
 

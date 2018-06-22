@@ -22,7 +22,7 @@ class CustomTable_desc extends React.Component {
                         `
 import React from 'react'
 
-import Table from '../../components/tables/Index'
+import { Table } from '../../components/components'
 
 import TestDataModel from '../../public/data/tableTest'
 
