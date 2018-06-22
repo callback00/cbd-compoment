@@ -1,6 +1,6 @@
 {
-  "name": "cbd-component",
-  "version": "1.0.7",
+  "name": "lyj-component",
+  "version": "1.0.0",
   "main": "./lib/components.js",
   "files": [
     "lib"
