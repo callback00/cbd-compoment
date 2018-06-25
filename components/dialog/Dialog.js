@@ -14,9 +14,13 @@ class Dialog extends React.Component {
 
         const doc = window.document;
         this.node = doc.createElement('div');
-        this.node.style.position = 'absolute'
-        this.node.style.top = '0'
+        this.node.style.position = 'absolute';
+        this.node.style.top = '0';
         doc.body.appendChild(this.node);
+    }
+
+    componentDidMount() {
+        this.setOriginPosition();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -28,26 +32,30 @@ class Dialog extends React.Component {
     }
 
     componentDidUpdate() {
-        const { mousePosition } = this.props
-        if (mousePosition) {
-            if (this.dialog) {
-                const transformOrigin = `${mousePosition.x - this.dialog.offsetLeft}px ${mousePosition.y - this.dialog.offsetTop}px`
-                this.dialog.style.transformOrigin = transformOrigin
-            }
-        }
+        this.setOriginPosition();
     }
 
     componentWillUnmount() {
         window.document.body.removeChild(this.node);
     }
 
+    setOriginPosition() {
+        const { mousePosition } = this.props;
+        if (mousePosition) {
+            if (this.dialog) {
+                const transformOrigin = `${mousePosition.x - this.dialog.offsetLeft}px ${mousePosition.y - this.dialog.offsetTop}px`;
+                this.dialog.style.transformOrigin = transformOrigin;
+            }
+        }
+    }
+
     handleClosed(e) {
-        e.stopPropagation()
+        e.stopPropagation();
         this.setState({
             visible: false
-        })
+        });
 
-        this.props.onClose(e)
+        this.props.onClose(e);
     }
 
     render() {
@@ -72,7 +80,7 @@ class Dialog extends React.Component {
         const mask = <div key='mask' className={mask_cls} />;
 
         const wrap = (
-            <div key='wrap' className="lyj-mobile-dialog-wrap" onClick={this.props.maskClosable ? this.handleClosed.bind(this) : null}>
+            <div key='wrap' className={`${this.props.prefixCls}-wrap`} onClick={this.props.maskClosable ? this.handleClosed.bind(this) : null}>
                 <div ref={element => this.dialog = element} style={this.props.style} className={dialog_cls} onClick={(e) => e.stopPropagation()} >
                     <div className={icon_cls} onClick={this.handleClosed.bind(this)} >
                         <span className="lines line-1" />
@@ -91,7 +99,7 @@ class Dialog extends React.Component {
                 this.node.style.display = 'none';
             }, 300); // 与css的一致
         } else {
-            this.node.style.display = 'block'
+            this.node.style.display = 'block';
         }
 
         return (
