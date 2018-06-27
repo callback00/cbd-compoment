@@ -12,7 +12,6 @@
   "author": "callback00",
   "license": "ISC",
   "devDependencies": {
-    "async-validator": "^1.8.2",
     "autoprefixer": "^8.0.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -44,6 +43,7 @@
     "url-loader": "^0.6.2",
     "vconsole": "^2.5.2",
     "webpack": "^4.2.0",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^2.0.13",
     "webpack-dev-middleware": "^3.0.1",
     "webpack-hot-middleware": "^2.21.2"

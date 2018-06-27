@@ -14,10 +14,11 @@ module.exports = [
 
         entry: {
             app: ['./App.js'],
+            css: ['./style/bs_main.scss'],
         },
 
         output: {
-            path: path.resolve(__dirname, '../dist/mobile/bundle'),
+            path: path.resolve(__dirname, '../dist/mobile'),
             filename: '[name].js',
             publicPath: '../dist',
         },

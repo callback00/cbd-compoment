@@ -3,6 +3,7 @@
  **************************************/
 const path = require('path')
 const webpack = require('webpack')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 // webpack 配置
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
   entry: {
     // 热加载写法
     app: ['webpack-hot-middleware/client', './App.js'],
-    css: ['./style/bs_main.scss'],
+    css: ['webpack-hot-middleware/client', './style/bs_main.scss'],
   },
 
   output: {
@@ -28,6 +29,7 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    // new BundleAnalyzerPlugin(), // 用于分析包大小的插件,启用后运行浏览器会自动弹出分析页面
   ],
 
   module: {
