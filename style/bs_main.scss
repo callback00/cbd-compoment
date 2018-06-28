@@ -1,2 +1,6 @@
 // 业务界面样式代码引用，初始值有lyj_main.scss
 @import '../components/style/lyj_main.scss';
+#canvas {
+    background: #3E989B;
+    display: block;
+}

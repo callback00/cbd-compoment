@@ -14,14 +14,14 @@ class Modal extends React.Component {
         if (mousePositionEventBinded) {
             return;
         }
-        // 只有点击事件支持从鼠标位置动画展开
-        document.documentElement.addEventListener('click', this.getClickPosition);
+        // 只有点击事件支持从鼠标位置动画展开, 绑定在window 中的事件先render后执行事件，所以只能绑在document.documentElement中
+        document.documentElement.addEventListener('click', this.getClickPosition.bind(this));
 
         mousePositionEventBinded = true;
     }
 
     componentWillUnmount() {
-        document.documentElement.removeEventListener("click", this.getClickPosition);
+        document.documentElement.removeEventListener("click", this.getClickPosition.bind(this));
     }
 
     getClickPosition(e) {

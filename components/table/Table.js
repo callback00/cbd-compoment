@@ -59,7 +59,7 @@ class Table extends React.Component {
 
         this.handleFixedTableScrollBar();
 
-        addEventListener('resize', this.debouncedResize)
+        window.addEventListener('resize', this.debouncedResize)
     }
 
     componentDidUpdate() {
