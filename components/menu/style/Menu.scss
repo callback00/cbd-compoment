@@ -1,0 +1,179 @@
+.container {
+    background: #222;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    .menu-trigger {
+        position: absolute;
+        width: 40px;
+        right: 5%;
+        top: 20px;
+        cursor: pointer;
+        box-sizing: border-box;
+        z-index: 1001;
+        &.hidden {
+            visibility: hidden;
+        }
+        .menu-trigger-bar {
+            display: block;
+            position: relative;
+            height: 4px;
+            background-color: white;
+            margin-bottom: 7px;
+            transform: rotate(-45deg);
+            &.top {
+                width: 50%;
+                &.hidden {
+                    transform: rotate(-45deg) translate(80px, 0px);
+                    transition: all 0.5s ease-out 0.15s;
+                }
+                &.show {
+                    transform: rotate(-45deg) translate(0px, 0px);
+                    transition: all 0.5s ease-out 0.15s;
+                }
+            }
+            &.middle {
+                width: 100%;
+                &.hidden {
+                    transform: rotate(-45deg) translate(80px, 0px);
+                    transition: all 0.45s ease-out;
+                }
+                &.show {
+                    transform: rotate(-45deg) translate(0px, 0px);
+                    transition: all 0.45s ease-out;
+                }
+            }
+            &.bottom {
+                width: 50%;
+                margin-left: 50%;
+                &.hidden {
+                    transform: rotate(-45deg) translate(80px, 0px);
+                    transition: all 0.5s ease-out 0.25s;
+                }
+                &.show {
+                    transform: rotate(-45deg) translate(0px, 0px);
+                    transition: all 0.5s ease-out 0.25s;
+                }
+            }
+        }
+    }
+    .close-trigger {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        right: 5%;
+        top: 20px;
+        cursor: pointer;
+        box-sizing: border-box;
+        visibility: hidden;
+        z-index: 1001;
+        &.show {
+            visibility: visible;
+        }
+        .close-trigger-bar {
+            display: block;
+            position: absolute;
+            height: 4px;
+            width: 100%;
+            background-color: #222;
+            &.left {
+                transform: rotate(-45deg) translate(80px, 0px);
+                transition: all 0.3s ease-out;
+                &.show {
+                    transform: rotate(-45deg) translate(0px, 0px);
+                    transition: all 0.5s ease-out 0.2s;
+                }
+            }
+            &.right {
+                transform: rotate(45deg) translate(-80px, 0px);
+                transition: all 0.5s ease-out 0.1s;
+                &.show {
+                    transform: rotate(45deg) translate(0px, 0px);
+                    transition: all 0.5s ease-out 0.45s;
+                }
+            }
+            left:0px;
+            right: 0px;
+            top:0px;
+            bottom: 0px;
+            margin:auto;
+        }
+    }
+    .out-container {
+        position: absolute;
+        height: 100%;
+        min-height: 100%;
+        width: 100%;
+
+        .out-menu-content{
+            height: 100%;
+            overflow-y: auto;
+            visibility: hidden;
+            opacity: 0;
+            transition: all .4s ease-in 0.45s;
+            &.show {
+                opacity: 1;
+                visibility: visible;
+                z-index: 1000;
+                overflow-y: auto;
+            }
+        }
+
+        span{
+            color: white;
+        }
+    }
+    .inner-container {
+        height: 100%;
+        min-height: 100%;
+        width: 100%;
+        .menu-bg {
+            position: absolute;
+            background-color: white;
+            transition: 0.5s cubic-bezier(.7, .03, .69, .22);
+            transition-property: height, transform;
+            &.top {
+                transform: rotate(-45deg) translate(-25.5%, -255%);
+                &.open {
+                    transition: 0.5s ease-out;
+                    transform: rotate(-45deg) translate(-25.5%, -145%);
+                }
+            }
+            &.middle {
+                height: 0;
+                transform: rotate(-45deg) translate(-30%, -46%);
+
+                &.open{
+                    transition: 0.5s ease-out;
+                }
+            }
+            &.bottom {
+                transform: rotate(-45deg) translate(-22.5%, 165%);
+                &.open {
+                    transition: 0.5s ease-out;
+                    transform: rotate(-45deg) translate(-22.5%, 53%);
+                }
+            }
+        }
+        .inner-menu-content {
+            position: relative;
+            visibility: hidden;
+            opacity: 0;
+            z-index: -1;
+            height: 100%;
+            overflow-y: hidden;
+            &.show {
+                opacity: 1;
+                visibility: visible;
+                z-index: 1000;
+                overflow-y: auto;
+                transition: all .4s ease-in 0.45s;
+            }
+            ul {
+                margin: 0;
+                color: aqua;
+            }
+        }
+    }
+}
