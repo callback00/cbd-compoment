@@ -37,6 +37,7 @@ $prefixCls:'lyj-table';
             background: #f5f7f9;
         }
         table thead tr {
+            position: relative;
             &:first-child {
                 th {
                     &:first-child {
@@ -45,6 +46,19 @@ $prefixCls:'lyj-table';
                     &:last-child {
                         border-radius: 0 $radius 0 0;
                     }
+                }
+            }
+            th {
+                position: relative;
+                height: 100%;
+                .lyj-table-column-resize-spanner {
+                    position: absolute;
+                    width: 3px;
+                    cursor: ew-resize !important;
+                    height: 100%;
+                    top: 0;
+                    right: -2px;
+                    z-index: 100;
                 }
             }
         }

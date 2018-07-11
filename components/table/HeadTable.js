@@ -4,7 +4,6 @@ import classNames from 'classnames';
 
 import TableHeader from './commons/TableHeader';
 import ColGroup from './commons/ColGroup';
-import ColumnManager from './utils/ColumnManager';
 
 class HeadTable extends React.Component {
     constructor(props) {
@@ -27,8 +26,7 @@ class HeadTable extends React.Component {
             ['fixed']: fixed ? true : false
         });
 
-        let leafColumns = this.props.columnManager.getLeafColumns();
-
+        let leafColumns = this.props.columnManager.leafColumns;
         // fixed的table要处理下宽度的样式
         if (fixed) {
             width = 'auto';
@@ -41,7 +39,13 @@ class HeadTable extends React.Component {
             <div ref={(element) => { this.props.saveRef(refName, element) }} style={{ overflowY, overflowX: 'hidden' }} className={cls}>
                 <table style={{ width }} >
                     <ColGroup columns={leafColumns} />
-                    <TableHeader prefixCls={prefixCls} bordered={bordered} columns={columns} fixed={fixed} pubStore={this.props.pubStore} />
+                    <TableHeader
+                        prefixCls={prefixCls}
+                        bordered={bordered}
+                        columns={columns}
+                        fixed={fixed}
+                        pubStore={this.props.pubStore}
+                    />
                 </table>
             </div>
         )

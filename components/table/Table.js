@@ -19,7 +19,7 @@ class Table extends React.Component {
         this.state = {
         };
 
-        this.pubStore = createPubStore();
+        this.pubStore = createPubStore({ handleColumnsSize: this.handleColumnsSize.bind(this) });
 
         // 以参数的形式传递给子组件，感觉这样的方式不是很好，但是还没找到更好的解决方案
         this.dataManager = new DataManager(props.data);
@@ -143,6 +143,17 @@ class Table extends React.Component {
 
         // 固定列同步滚动
         this.handleBodyScrollTop(e)
+    }
+
+    // 调整列宽
+    handleColumnsSize(changeColumnDataIndex, width) {
+
+        this.columnManager.leafColumns.forEach((element, index) => {
+            if (element.dataIndex === changeColumnDataIndex) {
+                this.columnManager.leafColumns[index].width = width;
+            }
+        });
+        this.forceUpdate();
     }
 
     // 用于获取子组件内的元素实例，目前只用在处理同步滚动条时

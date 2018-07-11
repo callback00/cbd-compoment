@@ -60,7 +60,8 @@ class ColumnManager {
 
     constructor(columns) {
         this.columns = columns,
-            this.cached = {} // 缓存
+        this.leafColumns = this.leafColumns || this.getLeafColumns()
+        this.cached = {} // 缓存
     }
 
     groupedColumns() {

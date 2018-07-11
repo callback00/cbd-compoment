@@ -7,6 +7,8 @@ class pubStore {
     constructor(props) {
         this.fixedHeaderRowHeightArry = [];
         this.fixedTbodyRowHeightArry = [];
+
+        this.props = props
     }
 
     setFixedHeaderRowHeightArry(rowIndex, height) {
@@ -26,8 +28,12 @@ class pubStore {
     getFixedTbodyRowHeightArry() {
         return [...this.fixedTbodyRowHeightArry]
     }
+
+    handleColumnsSize(thIndex, newColWidth) {
+        this.props.handleColumnsSize(thIndex, newColWidth)
+    }
 }
 
-export default function createPubStore() {
-    return new pubStore()
+export default function createPubStore(props) {
+    return new pubStore(props)
 }
