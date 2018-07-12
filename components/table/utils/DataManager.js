@@ -17,6 +17,7 @@ function MergeCell(key, mergeData, firstKey, startRowIndex = 0, nextRowIndex = 1
 
         mergeData[nextRowIndex][key].visible = false
 
+        // 这里使用匿名函数返回，释放掉执行函数相关的参数以及变量
         return function () {
             return MergeCell(key, mergeData, firstKey, startRowIndex, nextRowIndex + 1)
         }
@@ -37,7 +38,7 @@ function trampoline(func, key, mergeData, firstKey) {
         value = value();
     }
 
-    return value;
+    return;
 }
 
 class DataManager {
@@ -93,8 +94,7 @@ class DataManager {
                 firstKey = columns[0].key
             }
             // 此处重新修改mergeData的rowSpan
-            // MergeCell(columns[i].key)
-            trampoline(MergeCell(columns[i].key, mergeData, firstKey))
+            trampoline(MergeCell, columns[i].key, mergeData, firstKey)
         }
 
         return mergeData
