@@ -22,8 +22,8 @@ class CustRoutes extends Component {
                 <Switch>
                     <Route path="/tablesExample" component={tablesExample} routeComponent={this} />
                     <Route path="/mDialog" component={mDialog} routeComponent={this} />
-                    <Route path="/background" component={background} routeComponent={this} />
                     <Route path="/menu" component={menu} routeComponent={this} />
+                    <Route path="/background" component={background} routeComponent={this} />
                 </Switch>
             </div>
         )

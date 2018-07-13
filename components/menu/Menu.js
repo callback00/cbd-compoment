@@ -109,13 +109,15 @@ class Menu extends React.Component {
     disposeBG(openFlag) {
 
         if (openFlag) {
-            this.bgTopEl.style.backgroundColor = 'rgb(255, 255, 255)'
-            this.bgMiddleEl.style.backgroundColor = 'rgb(255, 255, 255)'
-            this.bgBottompEl.style.backgroundColor = 'rgb(255, 255, 255)'
+            const openLeafBackground = this.props.openLeafBackground
+            this.bgTopEl.style.backgroundColor = openLeafBackground ? openLeafBackground : 'rgb(255, 255, 255)'
+            this.bgMiddleEl.style.backgroundColor = openLeafBackground ? openLeafBackground : 'rgb(255, 255, 255)'
+            this.bgBottompEl.style.backgroundColor = openLeafBackground ? openLeafBackground : 'rgb(255, 255, 255)'
         } else {
-            this.bgTopEl.style.backgroundColor = 'rgb(98, 149, 202)'
-            this.bgMiddleEl.style.backgroundColor = 'rgb(98, 149, 202)'
-            this.bgBottompEl.style.backgroundColor = 'rgb(98, 149, 202)'
+            const closeLeafBackground = this.props.closeLeafBackground
+            this.bgTopEl.style.backgroundColor = closeLeafBackground ? closeLeafBackground : 'rgb(98, 149, 202)'
+            this.bgMiddleEl.style.backgroundColor = closeLeafBackground ? closeLeafBackground : 'rgb(98, 149, 202)'
+            this.bgBottompEl.style.backgroundColor = closeLeafBackground ? closeLeafBackground : 'rgb(98, 149, 202)'
         }
 
         const height = window.innerHeight;
@@ -149,8 +151,14 @@ class Menu extends React.Component {
     }
 
     render() {
+
+        const outBackgroundColor = this.props.outBackgroundColor;
+        const style = { backgroundColor: outBackgroundColor };
+
+        const innerBackgroundColor = this.props.innerBackgroundColor;
+        const innerStyle = { backgroundColor: innerBackgroundColor };
         return (
-            <div className="container">
+            <div className="container" style={style}>
 
                 <div ref={element => { this.triggerMenu = element }} className="menu-trigger" onClick={this.handleOpen.bind(this)} >
                     <span ref={element => { this.triggerBarTopEl = element }} className="menu-trigger-bar top"></span>
@@ -163,53 +171,9 @@ class Menu extends React.Component {
                     <span ref={element => { this.closeTriggerRightEl = element }} className="close-trigger-bar right"></span>
                 </div>
 
-                {/* <span className="logo">
-                    <span>
-                        ⬢
-                        <i className="logo-title">UI</i>
-                        <i className="logo-badge">6</i>
-                    </span>
-                </span> */}
-
                 <div className="out-container" >
-                    <div ref={element => this.outContainerEl = element}  className="out-menu-content show" >
-                        <span className="logo">
-                            <span>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                                ⬢
-                                <p className="logo-title">UI</p>
-                                <p className="logo-badge">6</p>
-                            </span>
-                        </span>
+                    <div ref={element => this.outContainerEl = element} className="out-menu-content show" >
+                        {this.props.outContainer}
                     </div>
                 </div>
 
@@ -219,366 +183,8 @@ class Menu extends React.Component {
                     <span ref={element => this.bgMiddleEl = element} className="menu-bg middle"></span>
                     <span ref={element => this.bgBottompEl = element} className="menu-bg bottom"></span>
 
-                    <div ref={element => this.innerContainerEl = element} className="inner-menu-content">
-                        <ul className="menu">
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Create account</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                            <li>
-                                <a href="#">About</a>
-                            </li>
-                        </ul>
+                    <div ref={element => this.innerContainerEl = element} className="inner-menu-content" style={innerStyle}>
+                        {this.props.innerContainer}
                     </div>
                 </div>
             </div>
@@ -587,7 +193,11 @@ class Menu extends React.Component {
 };
 
 Menu.defaultProps = {
-    onClose: () => { }
+    onClose: () => { },
+    outBackgroundColor: '#222',
+    innerBackgroundColor: 'white',
+    openLeafBackground: 'rgb(255, 255, 255)',
+    closeLeafBackground: 'rgb(98, 149, 202)'
 }
 
 export default Menu
